@@ -1,0 +1,107 @@
+# Installing iwashere on Windows
+
+## Quick Install (2 minutes)
+
+1. **Download** `iwashere-windows-amd64.exe` from the releases page
+2. **Rename** it to `iwashere.exe`
+3. **Create folder**: `C:\tools\iwashere\`
+4. **Move** `iwashere.exe` into that folder
+5. **Add to PATH**:
+   - Press `Windows Key + X`
+   - Select "System"
+   - Click "Advanced system settings"
+   - Click "Environment Variables"
+   - Under "System variables", find "Path" and click "Edit"
+   - Click "New" and add `C:\tools\iwashere`
+   - Click "OK" on all windows
+6. **Restart** your terminal
+7. **Test** it:
+   ```
+   iwashere --help
+   ```
+
+
+
+# Installing iwashere on Linux
+
+## Quick Install
+
+```
+# Download
+wget https://github.com/Murchoid/iwashere/releases/download/v0.2.10/iwashere-linux-amd64
+```
+
+# Make executable and move to PATH
+```
+chmod +x iwashere-linux-amd64
+sudo mv iwashere-linux-amd64 /usr/local/bin/iwashere
+```
+
+# Test it
+```
+iwashere --help
+```
+
+## More on Installation
+Choose your platform below for installation instructions.
+
+## Linux
+
+### Debian/Ubuntu (APT)
+```
+curl -L https://github.com/Murchoid/iwashere/releases/download/v0.2.10/iwashere_0.2.10_linux_amd64.deb -o iwashere.deb
+sudo dpkg -i iwashere.deb
+``` 
+
+### Fedora/RHEL (RPM)
+```
+sudo rpm -ivh https://github.com/Murchoid/iwashere/releases/download/v0.2.10/iwashere_0.2.10_linux_amd64.rpm
+```
+
+### Binary (any distribution)
+```
+curl -L https://github.com/Murchoid/iwashere/releases/download/v0.2.10/iwashere_0.2.10_linux_amd64.tar.gz | tar xz
+sudo mv iwashere /usr/local/bin/
+```
+
+## macOS
+### Homebrew (recommended)
+```
+brew tap Murchoid/homebrew-iwashere
+brew install iwashere
+```
+
+### Binary (Intel)
+```
+curl -L https://github.com/Murchoid/iwashere/releases/download/v0.2.10/iwashere_0.2.darwin.tar.gz | tar xz
+sudo mv iwashere /usr/local/bin/
+```
+
+### Binary (Apple Silicon)
+```
+curl -L https://github.com/Murchoid/iwashere/releases/download/v0.2.10/iwashere_0.2.10_darwin_amd64.tar.gz | tar xz
+sudo mv iwashere /usr/local/bin/
+```
+
+## Windows
+### Scoop (recommended)
+```
+scoop bucket add iwashere https://github.com/Murchoid/scoop-iwashere
+scoop install iwashere
+```
+
+### Manual (64-bit)
+```
+Invoke-WebRequest -Uri "https://github.com/Murchoid/iwashere/releases/download/v0.2.10/iwashere_0.2.10_windows_amd64.zip" -OutFile "iwashere.zip"
+Expand-Archive -Path "iwashere.zip" -DestinationPath "C:\tools\iwashere"
+```
+
+### Add C:\tools\iwashere to your PATH
+### Verify Installation
+```
+iwashere --version
+```
+
+Next Steps
+- Initialize your first project
+- Learn all commands

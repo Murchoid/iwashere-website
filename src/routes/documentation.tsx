@@ -109,6 +109,8 @@ function DocsLayout() {
                     { href: '/documentation/list', label: 'list' },
                     { href: '/documentation/edit', label: 'edit' },
                     { href: '/documentation/delete', label: 'delete' },
+                    { href: '/documentation/branch', label: 'branch' },
+                    { href: '/documentation/status', label: 'status' },
                   ].map(item => (
                     <li key={item.href}>
                       <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>
@@ -124,10 +126,11 @@ function DocsLayout() {
                 </h4>
                 <ul className="space-y-1">
                   {[
-                    { href: '/documentation/sessions/overview', label: 'Overview' },
-                    { href: '/documentation/sessions/start', label: 'start' },
-                    { href: '/documentation/sessions/pause', label: 'pause / continue' },
-                    { href: '/documentation/sessions/end', label: 'end' },
+                    { href: '/documentation/session-overview', label: 'Overview' },
+                    { href: '/documentation/session-start', label: 'start' },
+                    { href: '/documentation/session-pause', label: 'pause' },
+                    { href: '/documentation/session-continue', label: 'continue' },
+                    { href: '/documentation/session-end', label: 'end' },
                   ].map(item => (
                     <li key={item.href}>
                       <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>

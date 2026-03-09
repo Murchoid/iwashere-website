@@ -1,0 +1,68 @@
+# init - Initialize iwashere
+
+The `init` command sets up iwashere in your current directory. It creates the necessary directory structure and configuration files.
+
+## Usage
+
+```
+iwashere init [options]
+```
+
+## Options
+Option	Description
+- --force	Re-initialize if already exists
+- --no-ignore	Don't update .gitignore
+
+## Examples
+Basic initialization
+
+```
+$ cd ~/projects/myapp
+$ iwashere init
+Initialized iwashere in /home/user/projects/myapp/.iwashere/
+```
+
+## Next steps:
+```
+  iwashere add "Your first note"
+  iwashere branch
+``` 
+
+## Force re-initialization
+```
+$ iwashere init --force
+Initialized iwashere in /home/user/projects/myapp/.iwashere/
+```
+
+## What Gets Created
+
+```your-project/
+ ├── .iwashere/
+ │   ├── db/         # Where the sql database gets initalized (gitignored)
+ │   ├── notes/         # Your personal notes (gitignored)
+ │   ├── reminders/     # Your reminders for notes (gitignored)
+ │   ├── sessions/     # Your sessions  (gitignored)
+ |
+ └── .iwashere-shared/  # Encrypted shared notes
+
+```
+
+## Configuration
+After init, you can customize your configuration in .iwashere/config.json:
+
+```
+{
+  "project": {
+    "name": "myapp",
+    "init_date": "2025-03-09T10:30:00Z"
+  },
+  "storage": {
+    "type": "json",
+    "path": "./private"
+  },
+  "git": {
+    "auto_context": true,
+    "track_branches": true
+  }
+}
+```

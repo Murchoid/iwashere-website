@@ -1,0 +1,81 @@
+# Quick Start Guide
+
+Get up and running with iwashere in 5 minutes.
+
+## Step 1: Initialize a Project
+
+```
+cd /path/to/your/project
+iwashere init
+```
+
+This creates a .iwashere directory to store your notes and configuration.
+
+## Step 2: Add Your First Note
+```
+iwashere add "Working on authentication feature, next implement JWT"
+```
+
+Output:
+
+```
+Git context: main @ a1b2c3d
+Note saved (ID: 4d28a474)
+```
+
+
+## Step 3: Check Your Status
+```
+iwashere status
+```
+
+Output:
+
+```
+iwashere status
+=================
+
+No active session
+Last note: "Working on authentication feature, next implement JWT" (2 minutes ago)
+
+Modified files:
+   • src/auth/jwt.go (unstaged)
+   • src/config/auth.js
+
+What's next?
+   • Start a session: iwashere session start "feature name"
+   • View all notes: iwashere list
+
+```
+
+## Step 4: Start a Session
+```
+iwashere session start "Authentication Work"
+```
+
+## Step 5: Add More Notes
+```
+iwashere add "Set up JWT validation" --session --tags auth,jwt
+iwashere add "Test token expiration" --session --tags testing
+```
+
+## Step 6: View All Notes
+```
+iwashere list
+```
+
+## Step 7: End Your Session
+```
+iwashere session end
+```
+
+You're Ready!
+You now know the basics. Next, explore:
+
+- Commands reference
+
+- Session management
+
+- Tag organization
+
+- Team sharing

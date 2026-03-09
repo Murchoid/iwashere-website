@@ -1,0 +1,30 @@
+# edit - Modify a Note
+
+The `edit` command allows you to modify an existing note's message or tags.
+
+## Usage
+
+```
+iwashere edit <note-id> [options]
+```
+
+### Options
+Option	Description
+- --message	New message for the note
+--tags	New comma-separated tags (replaces existing)
+--add-tags	Add tags to existing ones
+--remove-tags	Remove specific tags
+
+
+### Examples
+Update message
+
+```
+$ iwashere edit 4d28a474 -m "Implement JWT with refresh tokens"
+Note updated
+```
+
+Related Commands
+- show - View a note
+
+- delete - Remove a note

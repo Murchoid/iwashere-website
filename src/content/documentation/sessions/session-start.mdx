@@ -1,0 +1,55 @@
+# session start - Begin a Work Session
+
+The `start` command begins a new work session. All subsequent notes will be associated with this session until you pause or end it.
+
+## Usage
+
+```
+iwashere session start <session-name>
+```
+
+### Examples
+Start a new session
+
+```
+$ iwashere session start "Authentication Work"
+
+Session 'Authentication Work' started
+```
+
+Session appears in status
+```
+$ iwashere status
+iwashere status
+=================
+You were working on 'Authentication Work' (just now)
+Session ongoing
+
+No notes yet in this session
+What's next?
+   • Add a note: iwashere add "next task"
+   • End session: iwashere session end
+   • View all notes: iwashere list
+```
+
+Adding notes to the current session you do
+```
+$ iwashere add "Research JWT libraries" --session
+$ iwashere add "Implement token generation" --session
+```
+
+
+### Notes
+Only one session can be active at a time
+
+Starting a new session when there is an active one will throw an error, you will have to
+either pause the current session or end it
+
+All notes added with iwashere add do not go to the current session unless specified by the --sessin flag
+
+## Related Commands
+- session pause - Pause current session
+
+- session end - End current session
+
+- status - See active session

@@ -1,0 +1,50 @@
+# list - List All Notes
+
+The `list` command displays all notes in all branches, its use is simillar to `iwashere branch` only using branch only show the current branches notes unless specified otherwise.
+
+## Usage
+
+```
+iwashere list [options]
+```
+
+### Options
+Option	Description
+--limit N	Show only N most recent notes
+--short	Compact output format
+
+### Examples
+List all notes
+
+```
+$ iwashere list
+
+#feature
+[2 hours ago] (feature/auth) 4d28a474: Implementing JWT authentication
+
+#bug #performance
+[yesterday] (main) 8f3e2a1b: Fix memory leak in connection pool
+
+[3 days ago] (feature/ui) 7b5c3d1a: Update README
+```
+
+Limit to recent notes
+```
+$ iwashere list --limit 3
+```
+
+Compact format
+```
+$ iwashere list --short
+
+2h ago (feature/auth) Implementing JWT authentication
+1d ago  Fix memory leak
+3d ago  Update README
+```
+
+## Related Commands
+- show - View a specific note
+
+- tag list - List notes by tag
+
+- branch - Branch-specific notes
