@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* iwashere Light Mode (rarely used but supported) */
+
+  --background: #F8FAFC;
+  --foreground: #0F172A;
+
+  --card: #FFFFFF;
+  --card-foreground: #0F172A;
+
+  --primary: #3BB273;
+  --primary-foreground: #FFFFFF;
+
+  --accent: #3BB273;
+  --accent-foreground: #FFFFFF;
+
+  --muted: #E2E8F0;
+  --muted-foreground: #64748B;
+
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+
+  --code-bg: #0A0A0F;
+  --code-text: #E5E7EB;
+
+  --terminal-green: #3BB273;
+
+  --radius: 0.5rem;
+}
+
+.dark {
+  /* iwashere Main Theme (Developer Dark Mode) */
+
+  --background: #0B1220;
+  --foreground: #E5E7EB;
+
+  --card: #111827;
+  --card-foreground: #E5E7EB;
+
+  --primary: #3BB273;
+  --primary-foreground: #0B1220;
+
+  --accent: #3BB273;
+  --accent-foreground: #0B1220;
+
+  --muted: #1E293B;
+  --muted-foreground: #94A3B8;
+
+  --border: #1E293B;
+  --input: #1E293B;
+
+  --code-bg: #0A0A0F;
+  --code-text: #E5E7EB;
+
+  --terminal-green: #3BB273;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--muted);
+  --color-secondary-foreground: var(--muted-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+
+  --radius-md: var(--radius);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", sans-serif;
+  }
+
+  code,
+  pre {
+    font-family: "JetBrains Mono", monospace;
+    background: var(--code-bg);
+    color: var(--code-text);
+  }
+
+  html {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  label,
+  button {
+    font-weight: 500;
+  }
+
+  input {
+    font-weight: 400;
+  }
+}
