@@ -1,5 +1,4 @@
-<div style="display: inline-block; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;"><div style="display: flex; align-items: center; gap: 12px; user-select: none;"><div style="display: flex; align-items: center; gap: 8px;"><span style="color: #3BB273; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 20px;">$</span><span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #3BB273;"></span></div><div style="display: flex; flex-direction: column; line-height: 1.2;"><span style="color: #E5E7EB; font-size: 20px; font-weight: 600; letter-spacing: -0.02em;">iwashere</span></div></div><div style="margin-left: 32px;"><span style="color: #9CA3AF; font-size: 14px; font-family: 'SF Mono', 'Fira Code', monospace;">Commit context, not code</span><div style="height: 3px; width: 48px; background-color: #3BB273; margin-top: 4px; border-radius: 2px;"></div></div></div>
-
+![iwashere logo](.github/images/iwashere-logo.svg)
 
 ## About
 iwashere is a CLI tool that remembers where you left off in your coding projects. No more asking "What was I working on?" every time you come back to your code.
