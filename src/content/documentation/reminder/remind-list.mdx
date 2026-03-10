@@ -1,0 +1,30 @@
+# remind list - Show all the reminders
+
+```bash
+$ iwashere remind list
+⏰ Upcoming Reminders
+=====================
+
+Today:
+  • [4d28a474] Review PR from Alice (due today at 5:00 PM)
+    Message: Don't forget to check Alice's PR!
+
+Tomorrow:
+  • [8f3e2a1b] Prepare daily stand-up notes (due at 9:00 AM) 🔁 daily
+
+Next Week:
+  • [7b5c3d1a] Weekly team review (due Monday at 10:00 AM) 🔁 weekly
+
+```
+
+## Filter Reminders
+```bash
+# Show only today's reminders
+$ iwashere remind list --today
+
+# Show only repeating reminders
+$ iwashere remind list --repeat
+
+# Show reminders for a specific note
+$ iwashere remind list --note 4d28a474
+```

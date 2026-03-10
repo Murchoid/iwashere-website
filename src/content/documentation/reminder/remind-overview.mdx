@@ -1,0 +1,59 @@
+# remind - Set Reminders for Your Notes
+The remind command helps you remember to come back to important notes. Never forget to follow up on a task or idea again.
+
+Sometimes you add a note but need to be reminded about it later. Maybe it's:
+
+- A task you need to do tomorrow
+
+- A follow-up for next week's meeting
+
+- Something to check after the weekend
+
+- A reminder to revisit a complex problem
+
+The remind command lets you attach a reminder to any note, and iwashere will notify you when it's due.
+
+## Usage
+```bash
+$ iwashere remind <note-id> --at <when>
+
+$ iwashere remind list
+$ iwashere remind delete <reminder-id>
+```
+
+## Options
+|Option	|Description|
+|--------|-----------|
+|--at	|When to remind (e.g., "tomorrow 9am", "in 2 hours", "next Monday")|
+|--repeat	|Repeat interval: "daily", "weekly", "monthly"|
+|--message	|Custom reminder message (defaults to note message)|
+|--notify	|Send system notification when due|
+
+## Time Formats
+iwashere understands natural language time expressions:
+
+|Example	|Description|
+|----------|-------------|
+|--at "tomorrow 9am"|	Tomorrow at 9:00 AM|
+|--at "in 2 hours"|	2 hours from now|
+|--at "next Monday"|	Next Monday at 9:00 AM (default)|
+|--at "Friday 5pm"|	This Friday at 5:00 PM|
+|--at "2025-12-31 23:59"|	Specific date and time|
+|--at "in 30 minutes"|	30 minutes from now|
+|--at "next week"|	Same day next week at current time|
+
+## How Reminders Are Stored
+Reminders are stored in your .iwashere/reminders/ file:
+
+```json
+{
+  "ID": "be1a38663fe980a169de98a494cc2514",
+  "NoteID": "1f68d0996c8866531343b38086ad47b7",
+  "Message": "implementing reminders, remember to change the links as well",
+  "DueAt": "2026-03-10T23:24:42.378056217+03:00",
+  "CreatedAt": "2026-03-10T23:22:42.378104478+03:00",
+  "Active": true
+}
+```
+## Next
+- [How to add a reminder](/documentation/remind-set) - add a new reminder

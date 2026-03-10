@@ -1,0 +1,39 @@
+#reminde add [Noteid] --at <when> - set reminders for notes
+
+## Examples
+### Basic Reminder
+```bash
+# Add a note
+$ iwashere add "Review PR from Alice"
+
+# Set a reminder for tomorrow morning
+$ iwashere remind 4d28a474 --at "tomorrow 9am"
+Reminder set for tomorrow at 9:00 AM
+Note: Review PR from Alice
+```
+
+### With Custom Message
+```bash
+$ iwashere remind 4d28a474 --at "Friday 5pm" --message "Don't forget to check Alice's PR before the weekend!"
+Reminder set for Friday at 5:00 PM
+Message: Don't forget to check Alice's PR before the weekend!
+```
+
+### Repeating Reminders
+```bash
+# Daily stand-up reminder
+$ iwashere add "Prepare daily stand-up notes"
+$ iwashere remind 8f3e2a1b --at "9am" --repeat daily
+Daily reminder set for 9:00 AM
+Note: Prepare daily stand-up notes
+```
+
+### Weekly review
+```bash
+$ iwashere remind 7b5c3d1a --at "Monday 10am" --repeat weekly
+Weekly reminder set for every Monday at 10:00 AM
+```
+
+## Related
+- [remind list](/documentation/remind-list) - list all reminders
+- [remind delete](/documentation/remind-delete) - delete a reminder

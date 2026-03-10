@@ -45,6 +45,15 @@ export const docSections: DocSection[] = [
     ]
   },
   {
+    title: "Reminder",
+    items: [
+      { label: "Overview", href: "/documentation/remind-overview", slug: "remind-overview" },
+      { label: "add", href: "/documentation/remind-set", slug: "remind-set" },
+      { label: "management", href: "/documentation/remind-management", slug: "remind-management" },
+      { label: "list", href: "/documentation/remind-list", slug: "remind-list" },
+    ]
+  },
+  {
     title: "Tags",
     items: [
       { label: "Overview", href: "/documentation/tags-overview", slug: "tags-overview" },

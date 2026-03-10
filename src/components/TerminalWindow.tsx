@@ -110,7 +110,7 @@ export function TerminalWindow() {
                       </li>
                     </ul>
                     Related notes from this session:
-                    └─ 1m ago - Implementing JWT auth, stuck on token refresh
+                    <br/>└─ 1m ago - Implementing JWT auth, stuck on token refresh
 
                     What's next?
                     <ul>

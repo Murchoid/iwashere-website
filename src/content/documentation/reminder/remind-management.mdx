@@ -1,0 +1,107 @@
+#remind management - how to effectively manage your reminders
+
+## Delete a Reminder
+```bash
+# Find the reminder ID
+$ iwashere remind list
+# show all reminders with their id
+
+# Delete it
+$ iwashere remind delete rmd_abc123
+```
+
+## Snooze a Reminder
+```bash
+# When a reminder pops up, you can snooze it
+$ iwashere status
+DUE REMINDERS
+  • Review PR from Alice (overdue by 2 hours)
+    [S]nooze 1h [D]ismiss: s
+```
+
+## Mark as Done
+```bash
+# When you've completed the task
+$ iwashere remind done rmd_abc123
+Reminder marked as done
+```
+
+## Integration with Other Features
+### With Sessions
+```bash
+# Start a session and set a reminder to end it
+$ iwashere session start "Database Optimization"
+$ iwashere remind --current-session --at "in 3 hours"
+ #Reminder set to end session in 3 hours
+```
+
+### With Tags
+```bash
+# Set reminders for all notes with a specific tag
+$ iwashere remind --tag urgent --at "tomorrow"
+ #Reminders set for 3 notes tagged 'urgent'
+```
+
+### With Git
+```bash
+# Remind yourself when you switch to a specific branch
+$ iwashere remind 4d28a474 --on-branch feature/login
+ #Reminder will trigger when you switch to branch 'feature/login'
+```
+
+## Best Practices
+1. Be Specific with Times
+```bash
+# Good
+$ iwashere remind 123 --at "tomorrow 9am"
+
+# Better
+$ iwashere remind 123 --at "tomorrow 9am" --message "Review PR before standup"
+```
+
+2. Use Repeating Reminders for Regular Tasks
+```bash
+# Daily stand-up prep
+$ iwashere remind 456 --at "9:30am" --repeat daily
+
+# Weekly review
+$ iwashere remind 789 --at "Friday 4pm" --repeat weekly
+```
+
+3. Combine with Tags for Organization
+```bash
+$ iwashere add "Update documentation" --tags docs,priority
+$ iwashere remind --tag priority --at "tomorrow"
+```
+
+4. Set Reminders Immediately
+```bash
+# When you realize you need a reminder, set it right away
+$ iwashere add "Fix memory leak"
+$ iwashere remind 123 --at "in 2 hours"  # Do this immediately
+```
+
+## Troubleshooting
+
+### Reminder Not Showing Up
+```bash
+# Check if reminder is still active
+$ iwashere remind list
+
+# Check if note still exists
+$ iwashere show 4d28a474
+
+# Verify reminder file isn't corrupted
+$ cat .iwashere/private/reminders.json
+```
+
+## Related Commands
+- [remind ](/documentation/remind-set) - Create notes to remind about
+
+- [remind list](/documentation/remind-list) - View all notes
+
+- [tag](/documentation/tags-overview) - Organize notes with tags
+
+- [status](/documentation/status) - See due reminders in context
+
+- [session](/documentation/session-overview) - Group related notes

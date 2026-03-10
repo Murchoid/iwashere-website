@@ -13,12 +13,17 @@ export const Route = createFileRoute('/documentation')({
 
 function DocsLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarStyles, setSidebarStyles] = useState("-translate-x-full md:translate-x-0")
   const [searchModalOpen, setSearchModalOpen] = useState(false)
   
- 
+ const setSideBarStyle = () => {
+  const styles = sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+  setSidebarStyles(styles)
+ }
   // Close sidebar on route change (mobile)
   useEffect(() => {
     setSidebarOpen(false)
+    setSideBarStyle()
   }, [location.pathname])
 
   return (
@@ -88,7 +93,7 @@ function DocsLayout() {
             fixed md:sticky top-16 left-0 h-[calc(100vh-4rem)] w-64 
             bg-card border-r border-border 
             transition-transform duration-300 z-40
-            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+            ${sidebarStyles}
             overflow-y-auto p-4
           `}>
             <nav className="space-y-6">
@@ -99,7 +104,7 @@ function DocsLayout() {
                   </h4>
                   <ul className="space-y-1">
                     {section.items.map((item) => (
-                      <li key={item.href}>
+                      <li key={item.href} onClick={()=>setSidebarOpen(true)}>
                         <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>
                       </li>
                     ))}
