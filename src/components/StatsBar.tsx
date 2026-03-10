@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Star, Download, Tag, Users, Activity, Cpu, HardDrive, Network } from "lucide-react";
+import { Star, Download, Tag, Users, Cpu, HardDrive, Network } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const stats = [

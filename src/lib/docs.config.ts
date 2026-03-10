@@ -1,4 +1,3 @@
-// src/lib/docs-config.ts
 export interface DocSection {
   title: string
   items: DocItem[]
