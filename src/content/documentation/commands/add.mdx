@@ -1,39 +1,31 @@
-# add - Save your context
+# add – Save your context
 
-The `add` command saves a note about what you're currently working on.
+Create a new note describing what you're working on.
 
 ## Usage
 
-```
+```bash
 iwashere add <message> [options]
 ```
 
-
 ### Options
 
-Option	Description
-- --session, Adds the note to the current session
-- --tags	Comma-separated tags that the note belongs to
-- --branch	Override git branch
-
+| Flag        | Description                             |
+|-------------|-----------------------------------------|
+| `--session` | Adds the note to the current session    |
+| `--tags`    | Comma-separated tags                    |
+| `--branch`  | Override detected git branch           |
 
 ### Examples
 
-Basic note
+```bash
+iwashere add "Implementing JWT authentication"
+# Note saved (ID: 4d28a474)
 
+iwashere add "Fix memory leak" --tags bug,performance
 ```
 
-$ iwashere add "Implementing JWT authentication"
-Note saved (ID: 4d28a474)
-```
+## See also
 
-With tags
-
-```
-$ iwashere add "Fix memory leak" --tags bug,performance
-```
-
-## See Also
-1. [show](/documentation/show) - View notes
-
-2. [list](/documentation/list) - List all notes
+- [show](/documentation/show)
+- [list](/documentation/list)

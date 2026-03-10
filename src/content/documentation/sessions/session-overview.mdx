@@ -1,26 +1,47 @@
 # Sessions
 
-Sessions help you group related notes together. Think of them as "work blocks" – you start a session when you begin focused work on a feature, and end it when you're done.
+Sessions let you collect related notes and actions into a single "work block."  
+Start one when you begin focused work on a feature and close it when you're finished.
+
+> 📌 **Tip:** Treat a session like a lightweight task tracker – it gives context and keeps history tidy.
+
 
 ## Why Use Sessions?
 
-- **Group related notes** – All notes in a session stay together
-- **Track time** – See how long you spent on a task
-- **Better context** – When reviewing, see the whole story
-- **Cleaner reports** – Sessions provide natural grouping
+- **Group related notes** – Everything you jot down stays together.
+- **Track time** – See how long you spent on a specific activity.
+- **Better context** – Reviewing past work shows the whole story.
+- **Cleaner reports** – Sessions create natural boundaries in logs and exports.
+
 
 ## Session States
 
-| State | Description |
-|-------|-------------|
-| `ongoing` | Session is currently active |
-| `paused` | Session temporarily stopped |
-| `continued` | Session resumed after pause |
-| `ended` | Session completed |
+Each session goes through one of the following states:
+
+| State       | Meaning                                |
+|-------------|----------------------------------------|
+| `ongoing`   | Session is currently active            |
+| `paused`    | Work was temporarily stopped           |
+| `continued` | Session resumed after a pause         |
+| `ended`     | Session has been completed             |
+
 
 ## Commands
 
-- [session start](/documentation/session-start) - Start a new session
-- [session pause](/documentation/session-pause) - Pause current session
-- [session continue](/documentation/session-continue) - Resume paused session
-- [session end](/documentation/session-end) - End current session
+Use these CLI commands to manage the lifecycle of a session:
+
+```bash
+iwashere session start      # Start a new session
+iwashere session pause      # Pause the current session
+iwashere session continue   # Resume a paused session
+iwashere session end        # End the current session
+```
+
+Each command has its own page with examples and flags:
+
+- [session start](/documentation/session-start)
+- [session pause](/documentation/session-pause)
+- [session continue](/documentation/session-continue)
+- [session end](/documentation/session-end)
+
+> ⚠️ **Note:** Only one session can be active (`ongoing`) at a time. Pause or end the current session before starting another.

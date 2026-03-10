@@ -1,21 +1,24 @@
-# branch - Branch-Specific Notes
+# branch – Branch-specific notes
 
-The `branch` command shows notes for a specific git branch, making it easy to see context for your current work.
+Display notes associated with a git branch. By default it shows the current branch.
 
 ## Usage
 
-```
+```bash
 iwashere branch [branch-name] [options]
 ```
 
 ### Options
-Option	Description
-- --short	Show compacted notes
 
-### Examples
-Show notes for current branch
+| Flag     | Description          |
+|----------|----------------------|
+| `--short`| Show compact notes   |
 
-```
+## Examples
+
+### Current branch
+
+```bash
 $ git branch
 * feature/auth
   main
@@ -25,26 +28,20 @@ Git context: feature/auth @ 4cc7baa
 You have uncommitted changes
 [51m ago] (feature/auth) 613f9bb492427164a545e7c851c63215: Just finished the setup, Work on the commands mdxs 
   #feature
-
 ```
 
-Show notes for specific branch
+### Specific branch
 
-```
-$ iwashere branch main
-Git context: main @ 4cc7bad
-[3 days ago] (main) 7b5c3d1a: Update README
-[1 week ago] (main) 9a2b4c6d: Initial commit
+```bash
+iwashere branch main
 ```
 
-Show all branches
+### Show all branches
 
-```
-$ iwashere list
-```
+Use `iwashere list` instead.
 
-## Related Commands
-- [list](/documentation/list) - List all notes
+## Related commands
 
-- [status](/documentation/status) - Show current context
+- [list](/documentation/list)
+- [status](/documentation/status)
 

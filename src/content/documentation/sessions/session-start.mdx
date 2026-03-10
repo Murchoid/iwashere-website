@@ -1,55 +1,47 @@
-# session start - Begin a Work Session
+# session start – Begin a work session
 
-The `start` command begins a new work session. All subsequent notes will be associated with this session until you pause or end it.
+Start a new session. All notes added with `--session` will be attached to it until you pause or end it.
 
 ## Usage
 
-```
+```bash
 iwashere session start <session-name>
 ```
 
-### Examples
-Start a new session
+## Examples
 
-```
-$ iwashere session start "Authentication Work"
+Start:
 
-Session 'Authentication Work' started
+```bash
+iwashere session start "Authentication Work"
+# Session 'Authentication Work' started
 ```
 
-Session appears in status
-```
-$ iwashere status
+Confirm with status:
+
+```bash
 iwashere status
-=================
-You were working on 'Authentication Work' (just now)
-Session ongoing
-
-No notes yet in this session
-What's next?
-   • Add a note: iwashere add "next task"
-   • End session: iwashere session end
-   • View all notes: iwashere list
 ```
 
-Adding notes to the current session you do
 ```
-$ iwashere add "Research JWT libraries" --session
-$ iwashere add "Implement token generation" --session
+… (output) …
 ```
 
+Add notes within session:
+
+```bash
+iwashere add "Research JWT libraries" --session
+iwashere add "Implement token generation" --session
+```
 
 ### Notes
-Only one session can be active at a time
 
-Starting a new session when there is an active one will throw an error, you will have to
-either pause the current session or end it
+- Only one session may be active at a time.
+- Starting a session while another is ongoing causes an error; pause or end the existing session first.
+- Notes are not added to the current session unless you use `--session`.
 
-All notes added with iwashere add do not go to the current session unless specified by the --sessin flag
+## Related commands
 
-## Related Commands
-- [session pause](/documentation/session-pause) - Pause current session
-
-- [session end](/documentation/session-end) - End current session
-
-- [status](/documentation/status) - See active session
+- [session pause](/documentation/session-pause)
+- [session end](/documentation/session-end)
+- [status](/documentation/status)

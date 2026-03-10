@@ -1,55 +1,43 @@
-# session continue - Resume a Paused Session
+# session continue – Resume a paused session
 
-The `continue` command resumes a paused session. The timer starts again from where it left off.
+Restart timing for a session that was previously paused. The elapsed time carries forward.
 
 ## Usage
 
-```
+```bash
 iwashere session continue
 ```
 
-### Examples
-Continue paused session
+## Examples
 
-```
-$ iwashere session continue
-Session 'Authentication Work' continued
-
+```bash
+iwashere session continue
+# Session 'Authentication Work' continued
 ```
 
-Add notes after continuing
-
-```
-$ iwashere add "Implement refresh token rotation" --session
+```bash
+iwashere add "Implement refresh token rotation" --session
 ```
 
-Status shows resumed session
+Status shows the resumed session with updated duration.
 
-```
-$ iwashere status
-...
-You were working on 'Authentication Work' (just now)
-Session ongoing (total: 2h 20m)
-...
-```
-### How Time Tracking Works
-When you continue a paused session, iwashere:
+### Time tracking
 
-1. Records the resume time
+When continued, iwashere:
 
-2. Starts accumulating time again
+1. Records the resume timestamp.
+2. Restarts the timer.
+3. Adds the new active period to the previous total.
 
-3. Adds to the existing total time
-
-Total time = (all active periods) + (current active period)
+Total = previous active periods + current.
 
 ### Notes
-- Only paused sessions can be continued
 
-- Sessions in ended state cannot be resumed
+- Only paused sessions can be continued.
+- Ended sessions cannot be resumed.
 
+## Related commands
 
-## Related Commands
-- [session pause](/documentation/session-pause) - Pause current session
+- [session pause](/documentation/session-pause)
+- [session end](/documentation/session-end)
 
-- [session end](/documentation/session-end) - End session

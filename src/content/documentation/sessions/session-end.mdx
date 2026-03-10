@@ -1,55 +1,46 @@
-# session end - Complete a Session
+# session end – Complete a session
 
-The `end` command finishes a work session. Once ended, a session cannot be resumed.
+Marks the current session as finished. You cannot resume it afterwards.
 
 ## Usage
 
-```
+```bash
 iwashere session end
 ```
 
-### Examples
-End current session
+## Examples
 
-```
-$ iwashere session end
-Session 'Authentication Work' ended (total: 3h 15m)
+```bash
+iwashere session end
+# Session 'Authentication Work' ended (total: 3h 15m)
 ```
 
-View all sessions
-```
-$ iwashere session list
- Sessions
+### Viewing sessions
+
+```bash
+iwashere session list
+
+Sessions
 ================
-
-├─  0ce90c9174cea221fb204ec933a6fda6 (Commands documentation) (started 13m ago, paused)
-
-└─  92998a7d94c714393ca474d7a89f90d2 (Setup) (started 3h ago, lasted 2h20m0s)
+…
 ```
 
-View a specific session
-```
-$ iwashere session list 123
- Session: Commands documentation
-================================
+```bash
+iwashere session list 123
 
-Started:  Mar 10, 2026 at 00:28 (15m ago)
-Ended:    Mar 10, 2026 at 00:28 (15m ago)
-Duration: 0s
+Session: Commands documentation
+…
 ```
 
-What Happens When You End
-- Session state becomes ended
+### What happens when you end a session
 
-- Final total time is calculated
+- State becomes `ended`.
+- Final total time is computed.
+- No more notes may be added.
+- The session remains in history.
 
-- No more notes can be added
+## Related commands
 
-- Session appears in history
-
-## Related Commands
-- [session start](/documentation/session-start) - Begin new session
-
-- [session pause](/documentation/session-pause)- Pause session
-
-- [session list](/documentation/session-list)- View all sessions
+- [session start](/documentation/session-start)
+- [session pause](/documentation/session-pause)
+- [session list](/documentation/session-list)

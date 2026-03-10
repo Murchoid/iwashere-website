@@ -1,62 +1,36 @@
-# session pause - Pause Current Session
+# session pause – Pause the current session
 
-The `pause` command temporarily stops the current session. Use this when you're interrupted or need to switch context briefly.
+Temporarily stops timing for the active session. Use when you take a break or switch context.
 
 ## Usage
 
-```
+```bash
 iwashere session pause
 ```
 
-### Examples
-Pause active session
+## Examples
 
+```bash
+iwashere session pause
+# Session 'Authentication Work' paused (total: 2h 15m)
 ```
-$ iwashere session pause
-Session 'Authentication Work' paused (total: 2h 15m)
-```
 
-Status shows paused session
-```
-$ iwashere status
-
-iwashere status
-=================
-You were working on 'Commands documentation' (just now)
-Session paused
-
-Last note: Just finished the setup, Work on auth middleware
-feature
-
-Modified files:
-   • src/middlewares/auth.ts (unstaged)
-
-Related notes from this session:
-   └─ 1h ago - Just finished the setup, Work on auth middleware [feature]
-
-What's next?
-   • Add a note: iwashere add "next task"
-   • End session: iwashere session end
-   • View all notes: iwashere list
-```
+Status will reflect `Session paused`.
 
 ### What happens when paused
-1. Timer stops accumulating
 
-2 .Notes cannot be added to paused session
-
-3. Session can be resumed with continue
+- Timer stops accumulating.
+- You cannot add notes to the paused session.
+- Resume with `iwashere session continue`.
 
 ### Notes
-1. Only active (ongoing or continued) sessions can be paused
 
-2. Paused sessions don't accumulate time
+- Only an ongoing or continued session can be paused.
+- Paused sessions do not count toward total time.
 
-3. Use continue to resume
+## Related commands
 
-## Related Commands
-- [session continue](/documentation/session-continue) - Resume paused session
+- [session continue](/documentation/session-continue)
+- [session end](/documentation/session-end)
+- [status](/documentation/status)
 
-- [session end](/documentation/session-end) - End session permanently
-
-- [status](/documentation/status) - See session state

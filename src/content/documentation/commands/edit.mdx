@@ -1,30 +1,30 @@
-# edit - Modify a Note
+# edit – Modify a note
 
-The `edit` command allows you to modify an existing note's message or tags.
+Change a note's message or its tags.
 
 ## Usage
 
-```
+```bash
 iwashere edit <note-id> [options]
 ```
 
 ### Options
-Option	Description
-- --message	New message for the note
---tags	New comma-separated tags (replaces existing)
---add-tags	Add tags to existing ones
---remove-tags	Remove specific tags
 
+| Flag          | Description                         |
+|---------------|-------------------------------------|
+| `--message`   | New message for the note            |
+| `--tags`      | Replace tags with comma‑separated list |
+| `--add-tags`  | Add tags to existing ones           |
+| `--remove-tags`| Remove specific tags               |
 
-### Examples
-Update message
+### Example
 
+```bash
+iwashere edit 4d28a474 -m "Implement JWT with refresh tokens"
+# Note updated
 ```
-$ iwashere edit 4d28a474 -m "Implement JWT with refresh tokens"
-Note updated
-```
 
-Related Commands
-- [show](/documentation/show) - View a note
+## Related commands
 
-- [delete](/documentation/delete) - Remove a note
+- [show](/documentation/show)
+- [delete](/documentation/delete)

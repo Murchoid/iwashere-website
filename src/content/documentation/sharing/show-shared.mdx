@@ -1,18 +1,18 @@
-# show-shared - View Notes Shared With You
+# show-shared – View notes shared with you
 
 The `show-shared` command displays notes that teammates have shared with you.
 
 ## Usage
 
-```
+```bash
 iwashere show-shared [note-id]
 ```
 
 ### Examples
 
-List all shared notes
+#### List all shared notes
 
-```
+```bash
 $ iwashere show-shared
 
 Notes shared with you
@@ -28,9 +28,10 @@ Notes shared with you
 
 Use 'iwashere show-shared <note-id>' to view full note
 ```
-View a specific shared note
 
-```
+#### View a specific shared note
+
+```bash
 $ iwashere show-shared 4d28a474
 
 Note from kamaumkay@gmail.com
@@ -40,31 +41,27 @@ Worked on sessions and common commands, should work on making Related commands s
 
 Tags: feature,refactor
 Branch: master
-
 ```
 
-After pulling updates
+#### After pulling updates
 
-```
+```bash
 $ git pull
 $ iwashere show-shared
 ```
 
-### How Decryption Works
+### How decryption works
 
 When you view a shared note:
 
-1. iwashere finds the encrypted payload for your email
-
-2. It uses your email to decrypt the per-note key
-
-3. The key decrypts the actual note content
-
-4. The note is displayed
+1. iwashere finds the encrypted payload for your email.
+2. It uses your email to decrypt the per-note key.
+3. The key decrypts the actual note content.
+4. The note is displayed.
 
 This all happens locally – your private key never leaves your machine.
 
-## Related Commands
-[share](documentation/share) - Share notes with teammates
+## Related commands
 
-team list - See team members
+- [share](/documentation/share) – Share notes with teammates
+- `team list` – See team members

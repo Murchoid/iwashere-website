@@ -1,52 +1,49 @@
-# status - quick info of what you were doing
+# status – Quick snapshot of your current context
+
+Shows session info, the last note, modified files, and suggestions.
 
 ## Usage
 
-```
+```bash
 iwashere status
 ```
 
-### Examples
+## Example output
 
-```
-$ iwashere status
-
+```bash
 iwashere status
 =================
 
 You were working on 'Route implementation' (1h ago)
 Session ongoing
-Last note: JJust finished the writing the user controllers, Work on blog controllers
-feature
+Last note: Just finished writing the user controllers, work on blog controllers
 
 Modified files:
    • src/server.ts (unstaged)
    • src/controllers/userControllers.ts (unstaged)
 
 Related notes from this session:
-   └─ 1h ago - Just finished the writing the user controllers, Work on blog controllers [feature]
+   └─ 1h ago - Just finished writing the user controllers, work on blog controllers [feature]
 
 What's next?
    • Add a note: iwashere add "next task"
    • End session: iwashere session end
    • View all notes: iwashere list
-
 ```
 
-### What Status Shows
+### What status shows
 
-|Section	|Description|
-|-------|-------------|
-|**Session**	|Active session name and duration|
-|**Last Note**	|Most recent note in current session|
-|**Modified Files**	|Files changed (from notes + git)|
-|**Related Notes**	|Recent notes in current session|
-|**Next Steps**|	Helpful command suggestions|
+| Section          | Description                                   |
+|------------------|-----------------------------------------------|
+| **Session**       | Active session name and duration              |
+| **Last note**     | Most recent note in current session           |
+| **Modified files**| Files changed (from notes + git)              |
+| **Related notes** | Recent notes in current session               |
+| **Next steps**    | Helpful command suggestions                   |
 
+### No active session
 
-### With No Active Session
-
-```
+```bash
 $ iwashere status
 iwashere status
 =================
@@ -56,14 +53,14 @@ No active session
 
 Last note: Fix memory leak (2 days ago)
 
- What's next?
+What's next?
    • Start a session
    • View all notes: iwashere list
-   ```
-
-### With Long-Running Session Warning
-
 ```
+
+### Long-running session warning
+
+```bash
 $ iwashere status
 iwashere status
 =================
@@ -73,9 +70,8 @@ You were working on 'Database Work' (3 days ago) ⚠️
    Did you forget to end it?
 ```
 
-## Related Commands
-- [session start](/documentation/session-start) - Begin new session
+## Related commands
 
-- [session end](/documentation/session-end) - End current session
-
-- [list](/documentation/list) - View all notes
+- [session start](/documentation/session-start)
+- [session end](/documentation/session-end)
+- [list](/documentation/list)

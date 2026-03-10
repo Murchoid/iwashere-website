@@ -1,58 +1,55 @@
-# tag list - List Notes by Tag
+# tag list – List notes by tag
 
-The `list` subcommand shows all notes with a specific tag, or lists all tags in use.
+Display notes that contain a given tag or show all tags in use.
 
 ## Usage
 
-```
-iwashere tag list [tag]
+```bash
+iwashere tag list [tag] [options]
 ```
 
 ## Examples
 
-List all notes with a tag
+### Notes with a tag
 
-```
-$ iwashere tag list bug
-
-[2h ago] (main): Fix login bug
-[yesterday] (main): Memory leak in connection pool
+```bash
+iwashere tag list bug
 ```
 
-List all tags in use
+### All tags in use
 
-```
-$ iwashere tag list
+```bash
+iwashere tag list
+
 All Tags
 ============
-
 bug (3 notes)
 auth (5 notes)
 jwt (2 notes)
 performance (1 note)
 ```
 
-Tag cloud view
+### Tag cloud
 
-```
-$ iwashere tag list --cloud
+```bash
+iwashere tag list --cloud
 
-bug        ****
-auth       *****
-jwt        **
+bug         ****
+auth        *****
+jwt         **
 performance *
 ```
-Combined with other filters
 
+### Filters
+
+```bash
+iwashere tag list bug --limit 5
+iwashere tag list auth --since "this week"
 ```
-$ iwashere tag list bug --limit 5
-$ iwashere tag list auth --since "this week"
-```
 
-## Related Commands
-- [list [tag]](/documentation/tags-list)- Filter notes by tag
+## Related commands
 
-- [tag add](/documentation/tags-add) - Add tags
-
-- [tag remove](/documentation/tags-remove) - Remove tags
+- [tag add](/documentation/tags-add)
+- [tag remove](/documentation/tags-remove)
+- [iwashere list](/documentation/list) – supports `<tag>` argument
 

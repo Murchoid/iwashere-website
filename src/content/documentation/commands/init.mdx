@@ -1,56 +1,59 @@
-# init - Initialize iwashere
+# init – Initialize iwashere
 
-The `init` command sets up iwashere in your current directory. It creates the necessary directory structure and configuration files.
+Sets up the `.iwashere` directory and default configuration in the current project.
 
 ## Usage
 
-```
+```bash
 iwashere init [options]
 ```
 
-## Options
-Option	Description
-- --force	Re-initialize if already exists
-- --no-ignore	Don't update .gitignore
+### Options
 
-## Examples
-Basic initialization
+| Flag           | Description                         |
+|----------------|-------------------------------------|
+| `--force`      | Re-initialize if `.iwashere` exists |
+| `--no-ignore`  | Do not update `.gitignore`          |
 
-```
-$ cd ~/projects/myapp
-$ iwashere init
-Initialized iwashere in /home/user/projects/myapp/.iwashere/
-```
+### Examples
 
-## Next steps:
-```
-  iwashere add "Your first note"
-  iwashere branch
-``` 
-
-## Force re-initialization
-```
-$ iwashere init --force
-Initialized iwashere in /home/user/projects/myapp/.iwashere/
+```bash
+cd ~/projects/myapp
+iwashere init
+# Initialized iwashere in /home/user/projects/myapp/.iwashere/
 ```
 
-## What Gets Created
+Next steps:
 
-```your-project/
+```bash
+iwashere add "Your first note"
+iwashere branch
+```
+
+Force re-initialization:
+
+```bash
+iwashere init --force
+# Initialized iwashere in /home/user/projects/myapp/.iwashere/
+```
+
+### What gets created
+
+```
+your-project/
  ├── .iwashere/
- │   ├── db/         # Where the sql database gets initalized (gitignored)
- │   ├── notes/         # Your personal notes (gitignored)
- │   ├── reminders/     # Your reminders for notes (gitignored)
- │   ├── sessions/     # Your sessions  (gitignored)
- |
+ │   ├── db/         # SQL database (gitignored)
+ │   ├── notes/      # Personal notes (gitignored)
+ │   ├── reminders/  # Note reminders (gitignored)
+ │   ├── sessions/   # Session data (gitignored)
  └── .iwashere-shared/  # Encrypted shared notes
-
 ```
 
-## Configuration
-After init, you can customize your configuration in .iwashere/config.json:
+### Configuration
 
-```
+Edit `.iwashere/config.json` as needed:
+
+```json
 {
   "project": {
     "name": "myapp",
