@@ -1,10 +1,11 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 import { useState, useEffect } from 'react'
-import { ChevronRight, Menu, X, ExternalLink, Edit, Search } from 'lucide-react'
+import { ChevronRight, Menu, X, ExternalLink, Search } from 'lucide-react'
 import Logo from '#/components/Logo'
 import Footer from '#/components/Footer'
 import ThemeToggle from '#/components/ThemeToggle'
 import { docSections } from '#/lib/docs.config'
+import { SearchModal } from '#/components/SearchModal'
 
 export const Route = createFileRoute('/documentation')({
   component: DocsLayout,
@@ -12,8 +13,9 @@ export const Route = createFileRoute('/documentation')({
 
 function DocsLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
-
+  const [searchModalOpen, setSearchModalOpen] = useState(false)
+  
+ 
   // Close sidebar on route change (mobile)
   useEffect(() => {
     setSidebarOpen(false)
@@ -38,17 +40,24 @@ function DocsLayout() {
           </div>
 
           <div className="flex items-center gap-4">
-            {/* Search */}
-            <div className="hidden md:flex items-center bg-muted rounded-md px-3 py-1.5 w-64">
-              <Search className="w-4 h-4 text-muted-foreground mr-2" />
-              <input
-                type="text"
-                placeholder="Search docs..."
-                className="bg-transparent border-none outline-none text-sm w-full text-foreground placeholder-muted-foreground"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
+
+            {/* Search Button (replaces the input) */}
+            <button
+              onClick={() => setSearchModalOpen(true)}
+              className="hidden md:flex items-center gap-2 bg-muted hover:bg-muted/80 rounded-md px-4 py-2 w-64 text-left transition-colors"
+            >
+              <Search className="w-4 h-4 text-muted-foreground" />
+              <span className="text-sm text-muted-foreground flex-1">Search docs...</span>
+            </button>
+
+            {/* Mobile search button */}
+            <button
+              onClick={() => setSearchModalOpen(true)}
+              className="md:hidden p-2 text-foreground hover:text-primary"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+
 
             {/* Mobile menu button */}
             <button
@@ -125,6 +134,11 @@ function DocsLayout() {
                 prose-td:border prose-td:border-border prose-td:p-2
               ">
                 {/* This is where your markdown content goes */}
+
+                <SearchModal
+                  isOpen={searchModalOpen}
+                  onClose={() => setSearchModalOpen(false)}
+                />
                 <Outlet />
               </article>
             </div>

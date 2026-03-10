@@ -1,0 +1,71 @@
+# Configuration Options
+
+Manage your iwashere configuration with the `config` command.
+
+## Usage
+
+```bash
+iwashere config [get|set|list]
+```
+
+## Examples
+### View all settings
+```bash
+$ iwashere config
+{
+  "Project": {
+    "Name": "my-project",
+    "InitDate": "2026-03-02T20:05:23.077112974+03:00"
+  },
+  "Storage": {
+    "Type": "json",
+    "Path": "./notes"
+  },
+  "Git": {
+    "AutoContext": true,
+    "TrackBranches": true
+  }
+}
+
+```
+
+### Get a specific setting
+```bash
+$ iwashere config get git.autocontext
+true
+```
+
+### Set a value
+```bash
+$ iwashere config set display.format short
+display.format set to 'short'
+```
+
+### Set nested values
+```bash
+$ iwashere config set sessions.warn_after 2h
+sessions.warn_after set to '2h'
+```
+
+### Reset to default
+```bash
+$ iwashere config reset display.format
+display.format reset to default
+```
+
+## Global vs Project Config
+```bash
+# Set globally (affects all projects)
+$ iwashere config --global set display.format short
+
+# Set for current project only
+$ iwashere config set display.format short
+```
+
+## Supported Data Types
+|Type	|Example	|Description|
+|-------|-----------|------------|
+|string	|"myapp"	|Text values|
+|boolean|	true/false|	On/off flags|
+|duration|	"4h", "30m"|	Time periods|
+|number|	5	|Integer values|

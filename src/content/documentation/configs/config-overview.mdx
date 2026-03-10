@@ -1,0 +1,78 @@
+# Configuration
+
+iwashere can be configured globally or per project.
+
+## Configuration Files
+
+| Location | Purpose |
+|----------|---------|
+| `~/.config/iwashere/config.json` | Global user preferences |
+| `.iwashere/config.json` | Project-specific settings |
+
+## Default Configuration
+
+```json
+{
+  "project": {
+    "name": "myproject",
+    "init_date": "2025-03-09T10:30:00Z"
+  },
+  "storage": {
+    "type": "json",
+    "path": "./private"
+  },
+  "git": {
+    "auto_context": true,
+    "track_branches": true
+  },
+  "sessions": {
+    "warn_after": "4h",
+    "auto_pause_after": "24h"
+  },
+  "display": {
+    "format": "detailed",
+    "show_ids": true,
+    "show_tags": true
+  }
+}
+```
+
+## Configuration Options
+
+### Project Settings
+|Option|	Description|
+|------|----------------|
+|project.name|	Project name (auto-detected)|
+|project.init_date|	When iwashere was initialized|
+
+### Storage Settings
+
+|Option|	Description|
+|------|----------------|
+|storage.type	|json (more coming soon)|
+|storage.path	|Where to store private notes|
+
+### Git Settings
+
+|Option	|Description|
+|--------|-----------|
+|git.autocontext|	Auto-capture git info on add|
+|git.trackbranches	|Separate notes by branch|
+
+### Session Settings
+
+|Option|	Description|
+|------|----------------|
+|sessions.warn_after|	Show warning for long sessions|
+|sessions.auto_pause_after|	Auto-pause after inactivity|
+
+### Display Settings
+
+|Option|	Description|
+|-------|--------------|
+|display.format|	detailed, short, or compact|
+|display.show_ids|	Show note IDs in listings|
+|display.show_tags|	Show tags in listings|
+
+## Related
+- [Options](/documentation/config-options) 
