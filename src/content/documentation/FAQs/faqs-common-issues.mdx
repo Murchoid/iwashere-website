@@ -1,0 +1,282 @@
+# Common Issues
+
+Solutions to frequently encountered problems with iwashere.
+
+## "command not found" after installation
+
+### Symptom
+```bash
+$ iwashere --version
+bash: iwashere: command not found
+```
+
+### Solutions
+Check installation location
+
+```bash
+# Find where iwashere was installed
+find /usr /usr/local ~ -name "iwashere" -type f 2>/dev/null
+```
+
+Add to PATH (if installed in non-standard location)
+
+```bash
+# If installed in ~/.local/bin/
+export PATH="$HOME/.local/bin:$PATH"
+# Add this line to ~/.bashrc or ~/.zshrc
+```
+
+Reinstall properly
+
+```bash
+# Linux
+curl -L https://github.com/Murchoid/iwashere/releases/latest/download/iwashere_Linux_x86_64.tar.gz | tar xz
+sudo mv iwashere /usr/local/bin/
+sudo chmod +x /usr/local/bin/iwashere
+
+# macOS
+brew install Murchoid/tap/iwashere
+
+# Windows (PowerShell as Admin)
+scoop install iwashere
+```
+
+## Multiple iwashere binaries conflict
+
+### Symptom
+
+```bash
+$ which iwashere
+/usr/bin/iwashere
+/usr/local/bin/iwashere  # Shows multiple locations
+```
+
+### Solution
+
+```bash
+# Find all iwashere binaries
+whereis iwashere
+type -a iwashere
+
+# Remove duplicates, keep only one
+sudo rm /usr/bin/iwashere          # If in system directory
+sudo rm /usr/local/bin/iwashere.old # Old versions
+
+# Verify only one remains
+which iwashere
+iwashere --version
+```
+
+## Git context not being captured
+
+### Symptom
+Notes don't show branch or commit information.
+
+Check
+
+```bash
+# Are you in a git repository?
+git status
+
+# Is git integration enabled?
+iwashere config get git.auto_context
+
+# Do you have uncommitted changes? (still captured)
+git status
+```
+
+Enable git integration
+
+```bash
+# Enable in config
+iwashere config set git.auto_context true
+iwashere config set git.track_branches true
+
+# Test it
+iwashere add "Test git context"
+
+# Should show branch and commit
+```
+
+## Tags not appearing
+
+### Symptom
+Tags you added don't show up in listings.
+
+### Solutions
+Check tag syntax
+
+```bash
+# Correct
+iwashere add "message" --tags bug,feature
+
+# Also correct (no spaces)
+iwashere tag add 123 bug,feature
+
+# Wrong (spaces cause issues)
+iwashere add "message" --tags bug, feature  # Space after comma
+```
+
+Verify tags were added
+```bash
+# Show the note with tags
+iwashere show 123
+
+# Filter by tag
+iwashere tag list bug
+```
+
+Re-add tags if needed
+
+```bash
+iwashere tag add 123 bug,feature
+```
+
+## Sessions not tracking time correctly
+
+### Symptom
+Session durations seem wrong or not accumulating.
+
+### Common causes
+Forgot to pause/end
+
+```bash
+# Check active sessions
+iwashere session list --active
+
+# End it if forgotten
+iwashere session end
+```
+
+Multiple sessions conflict
+
+```bash
+# Can't have two active sessions
+iwashere session start "Work"
+iwashere session start "Other"  # This will warn you
+
+# End the first one
+iwashere session end
+iwashere session start "Other"
+```
+
+
+## Update command fails
+
+### Symptom
+
+```bash
+$ iwashere update
+Error: failed to download: HTTP 404
+```
+
+### Solutions
+
+Check your version
+
+```bash
+iwashere --version
+# If very old, update manually first
+```
+
+Manual update
+```bash
+# Linux
+curl -L https://github.com/Murchoid/iwashere/releases/latest/download/iwashere_Linux_x86_64.tar.gz | tar xz
+sudo mv iwashere /usr/local/bin/iwashere
+
+# macOS
+brew upgrade iwashere
+
+# Windows
+scoop update iwashere
+```
+
+## Network issues
+
+```bash
+# Check GitHub access
+curl https://api.github.com/repos/Murchoid/iwashere/releases/latest
+
+# Use a proxy if needed
+export HTTP_PROXY=http://proxy:port
+export HTTPS_PROXY=http://proxy:port
+iwashere update
+```
+
+## Sharing doesn't work
+
+### Symptom
+
+```bash
+$ iwashere share 123 --with alice@example.com
+Error: failed to encrypt for recipient
+```
+
+Check
+```bash
+# Is .iwashere-shared/ directory present?
+ls -la .iwashere-shared/
+
+# Does recipient exist in team.json?
+cat .iwashere/team.json
+
+# Are you using the correct email format?
+# Should be: alice@example.com (not @alice or @team)
+```
+
+Fix
+```bash
+# Create team.json if needed
+echo '{"teams":{"team1":{"members":["alice@example.com"]}}}' > .iwashere/team.json
+
+# Try sharing again
+iwashere share 123 --with alice@example.com
+
+# Commit and push
+git add .iwashere-shared/
+git commit -m "Share note with alice"
+git push
+```
+
+## Performance issues with many notes
+
+### Symptom
+Commands become slow with thousands of notes.
+
+### Optimizations
+```bash
+# Use filters to limit output
+iwashere list --limit 20
+
+# Clean up old notes (if needed)
+iwashere delete <old-note-id>
+```
+
+## Corrupted JSON files
+
+### Symptom
+```bash
+Error: failed to parse note: unexpected end of JSON input
+Recovery
+```
+
+```bash
+# Backup first
+cp -r .iwashere .iwashere.backup
+
+# Check which file is corrupted
+find .iwashere -name "*.json" -exec json_verify {} \; 2>&1 | grep -v OK
+
+# Restore from backup if needed
+cp .iwashere.backup/notes/corrupted.json .iwashere/notes/
+
+# Or manually edit to fix (be careful!)
+vim .iwashere/notes/corrupted.json
+```
+
+## Still having issues?
+
+- [Open an issue](https://github.com/Murchoid/iwashere/issues): GitHub Issues
+
+- Ask in Discord: Join our Discord

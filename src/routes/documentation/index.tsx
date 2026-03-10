@@ -27,13 +27,13 @@ function DocsIndexPage() {
         </Link>
 
         {/* Sessions Card */}
-        <Link to="/documentation/sessions/overview" className="block p-6 bg-card border border-border rounded-lg hover:border-primary transition group">
+        <Link to="/documentation/session-overview" className="block p-6 bg-card border border-border rounded-lg hover:border-primary transition group">
           <h2 className="text-xl font-semibold mb-2 group-hover:text-primary">Sessions</h2>
           <p className="text-muted-foreground">Manage work sessions to group related notes.</p>
         </Link>
 
         {/* Tags Card */}
-        <Link to="/documentation/tags/overview" className="block p-6 bg-card border border-border rounded-lg hover:border-primary transition group">
+        <Link to="/documentation/tags-overview" className="block p-6 bg-card border border-border rounded-lg hover:border-primary transition group">
           <h2 className="text-xl font-semibold mb-2 group-hover:text-primary">Tags</h2>
           <p className="text-muted-foreground">Organize your notes with tags.</p>
         </Link>
@@ -45,7 +45,7 @@ function DocsIndexPage() {
         </Link>
 
         {/* Team Features Card */}
-        <Link to="/documentation/team/overview" className="block p-6 bg-card border border-border rounded-lg hover:border-primary transition group">
+        <Link to="/documentation/sharing-overview" className="block p-6 bg-card border border-border rounded-lg hover:border-primary transition group">
           <h2 className="text-xl font-semibold mb-2 group-hover:text-primary">Team Features</h2>
           <p className="text-muted-foreground">Share notes with your team securely.</p>
         </Link>
@@ -55,7 +55,7 @@ function DocsIndexPage() {
         <h2 className="text-xl font-semibold mb-2">Need Help?</h2>
         <p className="text-foreground/80">
           Can't find what you're looking for? Check the{' '}
-          <Link to="/documentation/faq" className="text-primary hover:underline">FAQ</Link>
+          <Link to="/documentation/faqs-common-issues" className="text-primary hover:underline">FAQ</Link>
           {' '}or{' '}
           <a href="https://github.com/Murchoid/iwashere/issues" className="text-primary hover:underline">open an issue</a>.
         </p>

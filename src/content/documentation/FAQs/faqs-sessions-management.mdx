@@ -1,0 +1,162 @@
+# Session Management FAQ
+
+Common questions and best practices for working with sessions.
+
+## Session States
+
+| State | Description | Can Add Notes? | Timer Running? |
+|-------|-------------|-----------------|-----------------|
+| `ongoing` | Active session | Yes | Yes |
+| `paused` | Temporarily stopped |  No | No |
+| `continued` | Resumed after pause |  Yes |  Yes |
+| `ended` | Completed |  No |  No |
+
+## "Cannot start session: another session is active"
+
+### Problem
+
+```bash
+$ iwashere session start "New Work"
+
+There is an ongoing session, end or pause it to start another
+```
+
+### Solutions
+
+#### Option 1: End the current session
+
+```bash
+# See what's active
+iwashere status
+
+# End it
+iwashere session end
+
+# Start new one
+iwashere session start "New Work"
+```
+
+#### Option 2: Pause current session
+
+```bash
+iwashere session pause
+
+iwashere session start "New Work"
+# First session is paused, new one becomes active
+```
+
+## Session time seems wrong
+
+### Problem
+Session duration doesn't match actual time spent.
+
+Check
+- Did you pause properly?
+
+```bash
+# If you just stopped working without pausing
+# The timer kept running!
+
+# Solution: Check active sessions regularly
+iwashere status  # Shows active session and duration
+```
+
+- Did you continue after pause?
+
+```bash
+# Session was paused for lunch, now continuing
+$ iwashere session continue
+Session continued
+# Timer starts again from where it left off
+```
+
+
+## "Session ended but still showing in status"
+
+### Problem
+```bash
+$ iwashere session end
+ Session ended
+
+$ iwashere status  # Still shows something?
+```
+
+### Solution
+You might have ended the wrong session or have multiple sessions:
+
+```bash
+# List all sessions to see what's active
+iwashere session list
+
+# Check if there's another active session
+iwashere session list --active
+
+# End any remaining active sessions
+iwashere session end  # This ends the currently active one
+```
+
+## Best Practices for Session Management
+
+1. Start sessions intentionally
+```bash
+# Good: Start when you begin focused work
+iwashere session start "Feature X"
+
+# Bad: Starting and forgetting
+iwashere session start "..."  # Then walk away
+```
+
+2. Pause when interrupted
+```bash
+# Meeting? Lunch? Context switch?
+iwashere session pause
+# Timer stops, notes can't be added accidentally
+
+# Back? Continue
+iwashere session continue
+```
+
+3. End when done
+```bash
+# Feature complete? End of day?
+iwashere session end
+# Adds final timestamp and locks the session
+```
+
+4. Add summary for context
+```bash
+iwashere session end --summary "Implemented JWT auth with refresh tokens"
+# Makes it easy to review later
+```
+
+5. Review sessions regularly
+```bash
+# Daily review
+iwashere session list 
+```
+
+## Troubleshooting Session Issues
+
+### Session won't pause
+```bash
+# Check current state
+iwashere status
+
+# Can only pause 'ongoing' or 'continued' sessions
+# If already 'paused', use 'continue' first
+```
+
+### Can't add notes to session
+```bash
+# Check session state
+iwashere status
+
+# If 'paused', continue first
+iwashere session continue
+iwashere add "Now I can add notes"
+```
+
+### Session disappeared
+```bash
+# List all sessions (including ended)
+iwashere session list

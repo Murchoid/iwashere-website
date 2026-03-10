@@ -1,0 +1,65 @@
+# Git Integration
+
+iwashere seamlessly integrates with Git to provide context-aware notes that remember exactly where you were in your repository.
+
+## Overview
+
+When you add notes in a Git repository, iwashere automatically captures:
+
+- **Current branch** – Know which feature/bugfix you were working on
+- **Commit hash** – Exact point in history
+- **Modified files** – Unstaged and staged changes
+- **Commit message** – Context from your last commit
+
+This turns simple notes into rich, contextual breadcrumbs that help you pick up exactly where you left off.
+
+## Key Features
+
+| Feature | Description |
+|---------|-------------|
+| [Branch-Aware Notes](/docs/git/branch) | Notes are automatically tagged with your current branch |
+| [Commit Context](/docs/git/commits) | See which commit you were on when you added a note |
+| [File Tracking](/docs/git/files) | Know which files you were modifying |
+| [Branch Switching](/docs/git/switch) | Get reminders about notes on other branches |
+
+## Configuration
+
+```json
+{
+  "git": {
+    "auto_context": true,     // Auto-capture git info
+    "track_branches": true,   // Separate notes by branch
+    "ignore_branches": ["main", "master"] // Branches to ignore
+  }
+}
+```
+
+## Quick Example
+```bash
+# On a feature branch
+$ git checkout feature/login
+$ iwashere add "Implement JWT validation"
+
+# Later, switch branches
+$ git checkout main
+$ iwashere branch
+# shows only notes related to current branch
+```
+
+## Why Git Integration Matters
+Without git context:
+
+```text
+[2 days ago] Fix login bug
+```
+
+With git context:
+
+```text
+[2 days ago] (feature/login) Fix login bug
+Modified files: src/auth/jwt.go, src/middleware/auth.js
+The second tells you exactly where you were and what you were doing!
+```
+
+## Related
+- [git branch](/documentation/git-branch) - branching iwashere notes

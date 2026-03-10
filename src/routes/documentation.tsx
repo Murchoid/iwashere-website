@@ -166,8 +166,8 @@ function DocsLayout() {
                 </h4>
                 <ul className="space-y-1">
                   {[
-                    { href: '/documentation/git/overview', label: 'Overview' },
-                    { href: '/documentation/git/branch', label: 'Branch-aware notes' },
+                    { href: '/documentation/git-overview', label: 'Overview' },
+                    { href: '/documentation/git-branch', label: 'Branch-aware notes' },
                   ].map(item => (
                     <li key={item.href}>
                       <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>
@@ -219,9 +219,9 @@ function DocsLayout() {
                 </h4>
                 <ul className="space-y-1">
                   {[
-                    { href: '/documentation/faq/common-issues', label: 'Common issues' },
-                    { href: '/documentation/faq/permissions', label: 'Permission problems' },
-                    { href: '/documentation/faq/sessions', label: 'Session management' },
+                    { href: '/documentation/faqs-common-issues', label: 'Common issues' },
+                    { href: '/documentation/faqs-permissions', label: 'Permission problems' },
+                    { href: '/documentation/faqs-sessions-management', label: 'Session management' },
                   ].map(item => (
                     <li key={item.href}>
                       <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>

@@ -1,0 +1,170 @@
+# Branch-Aware Notes
+
+One of iwashere's most powerful features is automatic branch detection. Every note you add is tagged with your current Git branch, creating a natural organization system.
+
+## How It Works
+
+When you add a note in a Git repository:
+
+```bash
+$ git branch
+* feature/login
+  main
+
+$ iwashere add "Implement JWT validation"
+Git context: feature/login @ 140ac15
+You have uncommitted changes
+Note saved (ID: 61e66d9c82c34e7e1)
+```
+
+The branch and commit hash are automatically stored with the note.
+
+### Viewing Branch-Specific Notes
+
+#### Current branch
+```bash
+$ iwashere branch
+
+[2h ago] 4d28a474: Implement JWT validation
+[yesterday] 8f3e2a1b: Set up OAuth providers
+```
+
+#### Any branch
+```bash
+$ iwashere branch main
+
+[3d ago] 7b5c3d1a: Update README
+[1w ago] 9a2b4c6d: Initial commit
+```
+
+#### All branches
+```bash
+$ iwashere list
+```
+
+## Smart Branch Switching
+iwashere helps you remember context when switching branches:
+
+```bash
+$ git checkout feature/login
+$ iwashere status
+    #Info about iwashere status in branch feature/login
+```
+
+When switching to a different branch:
+
+```bash
+$ git checkout main
+Switched to branch 'main'
+
+$ iwashere status
+    # Info about iwashere status in branch main
+```
+
+Switch back with: git checkout feature/login
+- Branch-Specific Reports
+- Branch-Based Workflows
+
+## Feature development
+```bash
+# Start new feature
+$ git checkout -b feature/user-profile
+$ iwashere session start "User Profile Feature"
+
+# Throughout development
+$ iwashere add "Design database schema"
+$ iwashere add "Implement API endpoints"
+$ iwashere add "Add frontend components"
+
+# Switch to another task (with context)
+$ git checkout main
+$ iwashere status  # Shows you're on main, reminds about feature branch
+
+# Back to feature
+git checkout feature/user-profile
+$ iwashere status  # Shows last note on this branch
+```
+
+## Bug fixing
+```bash
+# Bug reported
+$ git checkout -b bugfix/login-error
+$ iwashere add "Reproduce login error" --tags bug
+
+# Fix found
+$ iwashere add "Fix: validate JWT expiration" --tags fix
+
+# Review later
+$ iwashere branch bugfix/login-error
+```
+
+## Code review preparation
+```bash
+# Before opening PR, review your notes
+$ iwashere branch feature/new-api
+# Notes on the currnt branch
+# Perfect for PR description!
+```
+
+## Configuration Options
+```bash
+# Enable/disable branch tracking
+$ iwashere config set git.track_branches true
+
+## Best Practices
+1. Start sessions per branch
+```bash
+$ git checkout -b feature/new-stuff
+$ iwashere session start "New Stuff"
+# All notes now tied to both branch and session
+```
+
+2. Use branch names in notes
+```bash
+# Good
+$ iwashere add "Implement JWT for feature/login"
+
+# Better (auto-captured)
+$ iwashere add "Implement JWT"  # Branch already known
+```
+
+3. Review before merge
+```bash
+# Before merging, review all branch notes
+$ iwashere branch feature/ready
+# Use as checklist or PR description
+```
+
+
+## Troubleshooting
+### Branch not being detected
+```bash
+# Are you in a git repo?
+$ git status
+
+# Is branch tracking enabled?
+$ iwashere config get git.track_branches
+
+# Check current branch
+$ git branch
+```
+
+### Wrong branch showing
+```bash
+# Update git info
+$ git fetch
+
+# Force iwashere to initialize
+$ iwashere init --force
+```
+
+## Integration with Other Features
+- Sessions - Sessions can span multiple branches, notes are still branch-aware
+
+- Tags - Combine with branch filters for powerful queries
+
+- Sharing - Branch context is included when sharing notes
+
+- Status - Shows current branch and last branch activity
+
+Branch-aware notes transform iwashere from a simple note-taker into a powerful context management system that understands your Git workflow!

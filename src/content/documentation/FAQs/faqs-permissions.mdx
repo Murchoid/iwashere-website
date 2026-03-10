@@ -1,0 +1,142 @@
+# Permission Issues (Linux/Unix)
+
+Permission issues are the most common problems on Linux and Unix-like systems. Here's how to solve them.
+
+## "Permission denied" when running iwashere
+
+### Symptom
+```bash
+$ iwashere
+bash: /usr/local/bin/iwashere: Permission denied
+```
+
+### Solution
+The binary doesn't have execute permissions:
+
+```bash
+# Add execute permission
+sudo chmod +x /usr/local/bin/iwashere
+```
+
+Verify
+```bash
+ls -l /usr/local/bin/iwashere
+# Should show: -rwxr-xr-x
+```
+
+## "Cannot create .iwashere: permission denied"
+
+### Symptom
+
+```bash
+$ iwashere init
+Error: failed to create directory .iwashere: permission denied
+```
+
+### Solution
+You don't have write permissions in the current directory:
+
+```bash
+# Check directory permissions
+ls -ld .
+
+# If you're in a system directory, move to your home/project directory
+cd ~/projects/myapp
+iwashere init
+
+# Or fix directory permissions (if it's your directory)
+sudo chown $USER:$USER .
+chmod 755 .
+```
+
+## Sudo required for updates
+
+### Symptom
+
+```bash
+$ iwashere update
+Error: failed to create backup: rename /usr/local/bin/iwashere /usr/local/bin/iwashere.bak: permission denied
+```
+
+### Solution
+
+iwashere was installed in a system directory requiring root:
+
+```bash
+# Option 1: Run update with sudo
+sudo iwashere update
+
+# Option 2: Reinstall in user directory (recommended)
+# Uninstall first
+sudo rm /usr/local/bin/iwashere
+
+# Install in ~/.local/bin/
+mkdir -p ~/.local/bin
+curl -L https://github.com/Murchoid/iwashere/releases/download/iwashere_linux_amd64.tar.gz | tar xz
+mv iwashere ~/.local/bin/
+
+# Add to PATH in ~/.bashrc or ~/.zshrc
+export PATH="$HOME/.local/bin:$PATH"
+
+# Now updates won't need sudo
+iwashere update
+```
+
+## Permission issues with .iwashere directory
+
+### Symptom
+
+```bash
+$ iwashere add "test"
+Error: failed to save note: open .iwashere/private/xxx.json: permission denied
+```
+
+### Solution
+The .iwashere directory has wrong ownership:
+
+```bash
+# Fix ownership
+sudo chown -R $USER:$USER .iwashere/
+
+# Fix permissions
+chmod -R 755 .iwashere/
+chmod 600 .iwashere/private/*.json  # Private notes should be readable only by you
+```
+
+## SELinux issues (Fedora/RHEL)
+
+### Symptom
+
+```bash
+$ iwashere status
+Error: cannot access .iwashere/config.json: Permission denied
+# But permissions look correct
+```
+
+### Solution
+SELinux might be blocking access:
+
+```bash
+# Check SELinux status
+getenforce
+
+# Option 1: Set correct context
+sudo restorecon -v -R .iwashere/
+
+# Option 2: Disable for current directory (not recommended)
+sudo chcon -R -t user_home_t .iwashere/
+
+# Option 3: Create a policy (advanced)
+# Check what's being blocked
+sudo ausearch -m avc -ts recent
+```
+
+## Prevention Tips
+
+> 1. Install in user space – Use ~/.local/bin/ instead of /usr/local/bin/
+
+> 2. Check ownership – Ensure .iwashere is owned by you
+
+> 3. Use version control – Commit .iwashere-shared/ but ignore .iwashere/
+
+

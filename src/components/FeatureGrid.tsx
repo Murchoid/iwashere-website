@@ -55,7 +55,7 @@ const features = [
 
 export function FeatureGrid() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <section id= "features" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background "code rain" effect */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="font-mono text-xs text-primary/30 whitespace-pre">
