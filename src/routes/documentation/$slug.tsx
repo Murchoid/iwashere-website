@@ -37,13 +37,14 @@ export const Route = createFileRoute('/documentation/$slug')({
         word.charAt(0).toUpperCase() + word.slice(1)
       ).join(' '),
       slug,
+      filePath
     }
   },
   component: DocPage,
 })
 
 function DocPage() {
-  const { content, slug } = Route.useLoaderData()
+  const { content, slug, filePath } = Route.useLoaderData()
   const [headings, setHeadings] = useState<Array<{id: string, text: string, level: number}>>([])
 
   // Extract headings from markdown content
@@ -175,7 +176,7 @@ function DocPage() {
             {/* Edit this page link */}
             <div className="mt-4 pt-4 border-t border-border">
               <a
-                href={`https://github.com/Murchoid/iwashere-website/edit/main/src/content/documentation/${slug}.mdx`}
+                href={`https://github.com/Murchoid/iwashere-website/edit/main/${filePath}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition"
