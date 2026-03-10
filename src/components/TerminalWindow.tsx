@@ -27,7 +27,7 @@ export function TerminalWindow() {
             <div className="w-3 h-3 rounded-full bg-green-500/80" />
           </div>
           <span className="text-xs text-muted-foreground ml-2 font-mono">
-            terminal
+            user@devbox:~$
           </span>
         </div>
 
