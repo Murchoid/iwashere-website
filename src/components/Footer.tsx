@@ -25,7 +25,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="https://github.com/Murchoid/iwashere/releases/latest" className="hover:text-primary transition-colors inline-flex items-center gap-2">
+                <a href="/documentation/installationt" className="hover:text-primary transition-colors inline-flex items-center gap-2">
                   <Download className="w-4 h-4" />
                   Downloads
                 </a>
@@ -50,7 +50,7 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Resources</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/downloads" className="hover:text-primary">Downloads</Link></li>
+              <li><Link to="/documentation/installation" className="hover:text-primary">Downloads</Link></li>
               <li><Link to="/changelog" className="hover:text-primary">Changelog</Link></li>
               <li><a href="https://github.com/Murchoid/iwashere" className="hover:text-primary">GitHub</a></li>
             </ul>

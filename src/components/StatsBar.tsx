@@ -46,13 +46,13 @@ export function StatsBar() {
   }, []);
 
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8 border-y border-border/50 bg-[#0F0F17]/50 relative overflow-hidden">
+    <section className="py-12 px-4 sm:px-6 lg:px-8 border-y border-border/50  relative overflow-hidden">
       {/* Background scanline effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent animate-scan pointer-events-none" />
       
       <div className="max-w-7xl mx-auto relative">
         {/* Terminal header */}
-        <div className="text-primary mt-12 p-4 rounded-lg bg-muted/30 border border-border/50 font-mono text-sm">
+        <div className="text-primary mt-12 mb-10 p-4 rounded-lg bg-muted/30 border border-border/50 font-mono text-sm">
           <span>$ system_monitor --stats</span>
           <span className="ml-2">iwashere</span>
         </div>
