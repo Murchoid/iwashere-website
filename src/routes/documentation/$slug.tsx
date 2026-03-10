@@ -175,7 +175,7 @@ function DocPage() {
             {/* Edit this page link */}
             <div className="mt-4 pt-4 border-t border-border">
               <a
-                href={`https://github.com/Murchoid/iwashere/edit/main/src/content/documentation/${slug}.mdx`}
+                href={`https://github.com/Murchoid/iwashere-website/edit/main/src/content/documentation/${slug}.mdx`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition"
