@@ -1,9 +1,10 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 import { useState, useEffect } from 'react'
-import { ChevronRight, Menu, X, ExternalLink, Edit, Search, Github, Download, BookOpen } from 'lucide-react'
+import { ChevronRight, Menu, X, ExternalLink, Edit, Search } from 'lucide-react'
 import Logo from '#/components/Logo'
 import Footer from '#/components/Footer'
 import ThemeToggle from '#/components/ThemeToggle'
+import { docSections } from '#/lib/docs.config'
 
 export const Route = createFileRoute('/documentation')({
   component: DocsLayout,
@@ -67,7 +68,7 @@ function DocsLayout() {
               GitHub <ExternalLink className="w-3 h-3" />
             </a>
 
-            <ThemeToggle/>
+            <ThemeToggle />
           </div>
         </div>
       </header>
@@ -82,157 +83,20 @@ function DocsLayout() {
             overflow-y-auto p-4
           `}>
             <nav className="space-y-6">
-              {/* Getting Started */}
-              <div>
-                <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Getting Started
-                </h4>
-                <ul className="space-y-1">
-                  {[
-                    { href: '/documentation/what-is-iwashere', label: 'What is iwashere?' },
-                    { href: '/documentation/installation', label: 'Installation' },
-                    { href: '/documentation/quick-start', label: 'Quick Start (5 min)' },
-                  ].map(item => (
-                    <li key={item.href}>
-                      <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Commands */}
-              <div>
-                <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Commands
-                </h4>
-                <ul className="space-y-1">
-                  {[
-                    { href: '/documentation/commands-overview', label: 'Overview' },
-                    { href: '/documentation/init', label: 'init' },
-                    { href: '/documentation/add', label: 'add' },
-                    { href: '/documentation/show', label: 'show' },
-                    { href: '/documentation/list', label: 'list' },
-                    { href: '/documentation/edit', label: 'edit' },
-                    { href: '/documentation/delete', label: 'delete' },
-                    { href: '/documentation/branch', label: 'branch' },
-                    { href: '/documentation/status', label: 'status' },
-                  ].map(item => (
-                    <li key={item.href}>
-                      <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Sessions */}
-              <div>
-                <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Sessions
-                </h4>
-                <ul className="space-y-1">
-                  {[
-                    { href: '/documentation/session-overview', label: 'Overview' },
-                    { href: '/documentation/session-start', label: 'start' },
-                    { href: '/documentation/session-pause', label: 'pause' },
-                    { href: '/documentation/session-continue', label: 'continue' },
-                    { href: '/documentation/session-end', label: 'end' },
-                  ].map(item => (
-                    <li key={item.href}>
-                      <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Tags */}
-              <div>
-                <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Tags
-                </h4>
-                <ul className="space-y-1">
-                  {[
-                    { href: '/documentation/tags-overview', label: 'Overview' },
-                    { href: '/documentation/tags-add', label: 'add' },
-                    { href: '/documentation/tags-remove', label: 'remove' },
-                    { href: '/documentation/tags-list', label: 'list' },
-                  ].map(item => (
-                    <li key={item.href}>
-                      <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Git Integration */}
-              <div>
-                <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Git Integration
-                </h4>
-                <ul className="space-y-1">
-                  {[
-                    { href: '/documentation/git-overview', label: 'Overview' },
-                    { href: '/documentation/git-branch', label: 'Branch-aware notes' },
-                  ].map(item => (
-                    <li key={item.href}>
-                      <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Configuration */}
-              <div>
-                <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Configuration
-                </h4>
-                <ul className="space-y-1">
-                  {[
-                    { href: '/documentation/config/overview', label: 'Overview' },
-                    { href: '/documentation/config/options', label: 'Options' },
-                  ].map(item => (
-                    <li key={item.href}>
-                      <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Team Features */}
-              <div>
-                <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Team Features
-                </h4>
-                <ul className="space-y-1">
-                  {[
-                    { href: '/documentation/sharing-overview', label: 'Overview' },
-                    { href: '/documentation/share', label: 'Sharing notes' },
-                    { href: '/documentation/setup', label: 'Team setup' },
-                    { href: '/documentation/show-shared', label: 'Receiving notes' },
-                  ].map(item => (
-                    <li key={item.href}>
-                      <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* FAQ */}
-              <div>
-                <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  FAQ / Troubleshooting
-                </h4>
-                <ul className="space-y-1">
-                  {[
-                    { href: '/documentation/faqs-common-issues', label: 'Common issues' },
-                    { href: '/documentation/faqs-permissions', label: 'Permission problems' },
-                    { href: '/documentation/faqs-sessions-management', label: 'Session management' },
-                  ].map(item => (
-                    <li key={item.href}>
-                      <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {docSections.map((section) => (
+                <div key={section.title}>
+                  <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                    {section.title}
+                  </h4>
+                  <ul className="space-y-1">
+                    {section.items.map((item) => (
+                      <li key={item.href}>
+                        <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </nav>
           </aside>
 
@@ -263,50 +127,12 @@ function DocsLayout() {
                 {/* This is where your markdown content goes */}
                 <Outlet />
               </article>
-
-              {/* On This Page - Right Sidebar (Desktop) */}
-              <div className="hidden xl:block fixed right-8 top-20 w-56">
-                <div className="bg-card border border-border rounded-lg p-4">
-                  <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-                    On this page
-                  </h4>
-                  <ul className="space-y-2 text-sm">
-                    {['Overview', 'Installation', 'Basic Usage', 'Examples', 'Options'].map(item => (
-                      <li key={item}>
-                        <a
-                          href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
-                          className="text-muted-foreground hover:text-primary transition block truncate"
-                          onClick={(e) => {
-                            e.preventDefault()
-                            document.getElementById(item.toLowerCase().replace(/\s+/g, '-'))?.scrollIntoView({ behavior: 'smooth' })
-                          }}
-                        >
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Edit this page link */}
-                  <div className="mt-4 pt-4 border-t border-border">
-                    <a
-                      href="https://github.com/Murchoid/iwashere/edit/main/docs/page.md"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition"
-                    >
-                      <Edit className="w-4 h-4" />
-                      Edit this page
-                    </a>
-                  </div>
-                </div>
-              </div>
             </div>
           </main>
         </div>
       </div>
 
-    <Footer/> 
+      <Footer />
     </div>
   )
 }
