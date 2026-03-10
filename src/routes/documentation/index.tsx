@@ -39,7 +39,7 @@ function DocsIndexPage() {
         </Link>
 
         {/* Git Integration Card */}
-        <Link to="/documentation/git/overview" className="block p-6 bg-card border border-border rounded-lg hover:border-primary transition group">
+        <Link to="/documentation/git-overview" className="block p-6 bg-card border border-border rounded-lg hover:border-primary transition group">
           <h2 className="text-xl font-semibold mb-2 group-hover:text-primary">Git Integration</h2>
           <p className="text-muted-foreground">How iwashere works with your git repositories.</p>
         </Link>

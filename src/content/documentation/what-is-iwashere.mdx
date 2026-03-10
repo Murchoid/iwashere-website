@@ -1,0 +1,222 @@
+# What is iwashere?
+A context preservation tool for developers who juggle multiple projects, tasks, and codebases.
+
+## The Problem
+Every developer knows this feeling:
+
+```bash
+# Monday, 4:30 PM
+$ git commit -m "WIP: implementing auth"
+# ... weekend happens ...
+
+# Tuesday, 9:00 AM
+$ cd project
+$ git status
+# ... blank stare ...
+# "What was I working on again?"
+# "Which file was I editing?"
+# "Was that bug fixed or still open?"
+```
+
+That's 15-30 minutes of context switching tax every time you return to a project. Multiply that by multiple projects, multiple interruptions, multiple days... it adds up to hours of lost productivity.
+
+## The Solution: iwashere
+iwashere is a CLI tool that remembers where you left off. Think of it as "git commit messages for your brain's context."
+
+```bash
+# When you stop working
+$ iwashere add "Implementing JWT auth, stuck on token refresh"
+
+# Next day
+$ iwashere status
+You were working on 'feature/auth' (2 hours ago)
+
+Last note: Implementing JWT auth, stuck on token refresh
+Modified files: src/auth/jwt.go
+```
+
+## Core Philosophy
+1. Context is Everything
+A note without context is just text. iwashere automatically captures:
+
+- Git branch – What feature were you working on?
+
+- Commit hash – Exactly where in history?
+
+- Modified files – What files were you touching?
+
+- Session timing – How long did you work?
+
+2. Deterministic, Not Probabilistic
+Unlike AI assistants that give different answers to the same prompt, iwashere is deterministic. What you save is exactly what you get back:
+
+```bash
+$ iwashere add "Fix memory leak in connection pool"
+# Today, tomorrow, next year:
+$ iwashere show 123
+> Fix memory leak in connection pool  # Exact same message
+```
+
+3. Privacy by Default
+Your context stays on your machine. No cloud, no telemetry, no tracking. When you share notes with teammates, they're encrypted end-to-end.
+
+4. Works Offline
+No internet? No problem. iwashere runs entirely on your machine. Perfect for:
+
+- Airplane mode coding
+
+- Remote areas with spotty connection
+
+- Secure environments with air-gapped systems
+
+- Just not wanting your data in the cloud
+
+5. Git-Native
+iwashere lives alongside git, not instead of it:
+
+```text
+your-project/
+├── .git/          # Your code history
+├── .iwashere/     # Your context history
+├── src/
+└── README.md
+```
+
+## What Makes iwashere Different
+|Feature	|iwashere	|Sticky Notes	|AI Assistants	|Cloud Notes
+|-----------|-----------|---------------|----------------|----------|
+|Works offline|	Yes|	Yes	|No|	No|
+|Git integration|	Yes|	No|	No|	No|
+|Deterministic|	Yes	|Yes|	No|	Yes|
+|Privacy|	Local	|Local|	Cloud|	Cloud|
+|Team sharing|	Encrypted|	No|	Limited|	Yes|
+|Searchable|	Yes|	No|	Yes|	Yes|
+|Branch-aware|	Yes	|No|	No|	No|
+|Session tracking|	Yes|	No|	No|	No|
+
+## Use Cases
+### Solo Developer
+```bash
+# Multiple projects? No problem
+$ cd project-a
+$ iwashere add "Optimize database queries"
+cd ../project-b
+$ iwashere add "Fix login bug"
+
+# Next day, quick context switch
+$ washere status  # Shows what you were doing in current project
+```
+
+### Team Collaboration
+```bash
+# Share context with teammates
+$ iwashere share 123 --with alice@example.com
+$ git add .iwashere-shared/ && git commit -m "Share auth notes"
+
+# Alice sees your context
+$ iwashere show-shared
+```
+
+### Open Source Maintainer
+```bash
+# Multiple contributors, multiple issues
+$ iwashere tag add 123 bug,priority
+$ iwashere branch feature/new-api
+# Clear context for each contributor
+```
+
+### Consultant/Freelancer
+```bash
+# Client A
+$ cd /projects/client-a
+$ iwashere session start "Billing feature"
+
+# Client B (urgent)
+$ cd /projects/client-b
+$ iwashere session start "Hotfix"
+
+# Switch back to Client A
+$ cd /projects/client-a
+$ iwashere status  # Instant context recovery
+```
+
+# The "iwashere" Philosophy
+The name comes from leaving your mark – "I was here." Like a developer's version of a bookmark, but smarter:
+
+- I was here – at this point in the codebase
+
+- I was here – working on this feature
+
+- I was here – stuck on this problem
+
+- I was here – and here's what I did next
+
+Built by Developers, for Developers.\
+iwashere was born from a personal need. The creator was tired of:
+
+- Spending 15 minutes every morning figuring out where they left off
+
+- Juggling multiple projects and losing context
+
+- Forgetting critical details after interruptions
+
+- Using sticky notes (that fall off) or text files (that get lost)
+
+The solution had to be:
+
+- Fast – sub-second commands
+
+- Simple – one command to save, one to recall
+
+- Integrated – works with existing tools (git)
+
+- Private – your data, your machine
+
+The Result\
+iwashere has been used since day one, used to build itself. Every feature, every bug fix, every "where was I?" moment was captured with iwashere.
+
+```bash
+# Meta moment: using iwashere to build iwashere
+$ iwashere add "Implement session pause/continue feature"
+# Note added
+
+$ iwashere list
+[2h ago] (main) 23ed9883hd899 Implement session pause/continue feature
+[yesterday] (main) 3ud997djhf98923f08 Fix update command permission issue
+
+```
+
+## Who is iwashere For?
+You if you've ever asked "What was I working on?"
+
+You if you juggle multiple projects
+
+You if you hate context switching overhead
+
+You if you value your privacy
+
+You if you want your tools to work offline
+
+You if you're tired of sticky notes
+
+## Quick Start
+```bash
+# Install
+curl -L https://github.com/Murchoid/iwashere/releases/download/v0.2.10/iwashere_0.2.10_linux_amd64.tar.gz | tar xz
+sudo mv iwashere /usr/local/bin/
+
+# Use
+$ cd your-project
+$ iwashere init
+$ iwashere add "Starting awesome feature"
+$ iwashere status
+```
+
+## Next Steps
+- [Install](/documentation/installation) iwashere on your platform
+
+- [Quick Start Guide](/documentation/quick-start) – 5 minutes to productivity
+
+- [GitHub Repository](https://github.com/Murchoid/iwashere) – Star us, contribute, report issues
+
+Never ask "What was I working on?" again.

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { ChevronRight, Menu, X, ExternalLink, Edit, Search, Github, Download, BookOpen } from 'lucide-react'
 import Logo from '#/components/Logo'
 import Footer from '#/components/Footer'
+import ThemeToggle from '#/components/ThemeToggle'
 
 export const Route = createFileRoute('/documentation')({
   component: DocsLayout,
@@ -65,6 +66,8 @@ function DocsLayout() {
             >
               GitHub <ExternalLink className="w-3 h-3" />
             </a>
+
+            <ThemeToggle/>
           </div>
         </div>
       </header>
