@@ -143,8 +143,6 @@ Inspired by the need to remember context across coding sessions
 ## Contact
 [GitHub Issues](https://github.com/Murchoid/iwashere/issues): Report a bug
 
-Discussions: Join the conversation
-
-Twitter/X: @iwashere
+[Twitter/X](https://x.com/iwasherecpt): @iwasherecpt
 
 <div align="center"> <sub>Built with ❤️ in Kenya</sub> <br/> <sub>© 2026 iwashere. MIT Licensed.</sub> </div> 

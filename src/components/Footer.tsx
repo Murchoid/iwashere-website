@@ -59,7 +59,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Community</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><a href="#" className="hover:text-primary">Discord</a></li>
-              <li><a href="#" className="hover:text-primary">Twitter</a></li>
+              <li><a href="https://x.com/iwasherecpt" className="hover:text-primary">Twitter</a></li>
               <li><a href="https://github.com/Murchoid/iwashere/issues" className="hover:text-primary">Report Issue</a></li>
             </ul>
           </div>
