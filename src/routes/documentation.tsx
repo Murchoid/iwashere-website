@@ -107,6 +107,7 @@ function DocsLayout() {
                 </h4>
                 <ul className="space-y-1">
                   {[
+                    { href: '/documentation/commands-overview', label: 'Overview' },
                     { href: '/documentation/init', label: 'init' },
                     { href: '/documentation/add', label: 'add' },
                     { href: '/documentation/show', label: 'show' },

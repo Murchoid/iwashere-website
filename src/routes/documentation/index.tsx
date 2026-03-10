@@ -21,7 +21,7 @@ function DocsIndexPage() {
         </Link>
 
         {/* Commands Card */}
-        <Link to="/documentation/commands/overview" className="block p-6 bg-card border border-border rounded-lg hover:border-primary transition group">
+        <Link to="/documentation/commands-overview" className="block p-6 bg-card border border-border rounded-lg hover:border-primary transition group">
           <h2 className="text-xl font-semibold mb-2 group-hover:text-primary">Commands</h2>
           <p className="text-muted-foreground">Complete reference for all iwashere commands.</p>
         </Link>
