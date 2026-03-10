@@ -1,204 +1,151 @@
-Welcome to your new TanStack Start app! 
+<div style="display: inline-block; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;"><div style="display: flex; align-items: center; gap: 12px; user-select: none;"><div style="display: flex; align-items: center; gap: 8px;"><span style="color: #3BB273; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 20px;">$</span><span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #3BB273;"></span></div><div style="display: flex; flex-direction: column; line-height: 1.2;"><span style="color: #E5E7EB; font-size: 20px; font-weight: 600; letter-spacing: -0.02em;">iwashere</span></div></div><div style="margin-left: 32px;"><span style="color: #9CA3AF; font-size: 14px; font-family: 'SF Mono', 'Fira Code', monospace;">Commit context, not code</span><div style="height: 3px; width: 48px; background-color: #3BB273; margin-top: 4px; border-radius: 2px;"></div></div></div>
 
-# Getting Started
 
-To run this application:
-
-```bash
-pnpm install
-pnpm dev
-```
-
-# Building For Production
-
-To build this application for production:
+## About
+iwashere is a CLI tool that remembers where you left off in your coding projects. No more asking "What was I working on?" every time you come back to your code.
 
 ```bash
-pnpm build
+# When you stop working
+$ iwashere add "Implementing JWT auth, stuck on token refresh"
+
+# Next day
+$ iwashere status
+You were working on 'feature/auth' (2 hours ago)
+Last note: Implementing JWT auth, stuck on token refresh
+Modified files: src/auth/jwt.go
+...
 ```
 
-## Testing
+## Features
+|Feature|	Description|
+|-------|-------------|
+|Git Integration	|Automatically captures branch and commit context|
+|Session Tracking|	Group related notes with pause/resume|
+|Team Sharing	|Encrypted note sharing with teammates|
+|Cross-Platform	|Works on Linux, macOS, and Windows|
+|Self-Updating|	One command: iwashere update|
+|Privacy First|	Your data stays on your machine|
+|Reminders	|Never forget to follow up|
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
-
+## Quick Install
+### Linux
 ```bash
-pnpm test
+curl -L https://github.com/Murchoid/iwashere/releases/download/iwashere_linux_amd64.tar.gz | tar xz
+sudo mv iwashere /usr/local/bin/
 ```
 
-## Styling
-
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
-
-### Removing Tailwind CSS
-
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `pnpm add @tailwindcss/vite tailwindcss --dev`
-
-## Linting & Formatting
-
-
-This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
-
+### macOS
 ```bash
-pnpm lint
-pnpm format
-pnpm check
+brew tap Murchoid/homebrew-iwashere
+brew install Murchoid/tap/iwashere
 ```
 
-
-
-## Routing
-
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
+### Windows
+```bash
+scoop bucket add iwashere https://github.com/Murchoid/scoop-iwashere
+scoop install iwashere
 ```
 
-Then anywhere in your JSX you can use it like so:
+## Quick Start
+```bash
+# Initialize in your project
+cd your-project
+iwashere init
 
-```tsx
-<Link to="/about">About</Link>
+# Add your first note
+iwashere add "Working on authentication feature"
+
+# See where you left off
+iwashere status
+
+# Start a session
+iwashere session start "Auth Work"
+iwashere add "Implement JWT validation" --tags auth,jwt
+iwashere session end
 ```
 
-This will create a link that will navigate to the `/about` route.
+## Documentation
+|Section	|Description|
+|----------|-----------|
+|Getting Started	|Install and initialize
+|Commands	|All commands reference
+|Sessions	|Work session management
+|Tags	|Organize your notes
+|Git Integration	|Branch-aware notes
+|Team Features	|Share with teammates
+|FAQ	|Troubleshooting
 
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
+## Example Workflow
+```bash
+# Monday morning
+$ cd ~/projects/api-service
+$ iwashere status
+No active session
+Last note: "Fix rate limiting bug" (3 days ago)
+...
 
-### Using A Layout
+# Start fresh session
+$ iwashere session start "Add new endpoints"
+Session 'Add new endpoints' started
 
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
+# Add notes as you work
+$ iwashere add "Design POST /users schema" --session --tags design
+$ iwashere add "Implement validation middleware" --session --tags implementation
 
-Here is an example layout that includes a header:
+# Lunch break
+$ iwashere session pause
+Session paused (total: 2h 15m)
 
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
+# After lunch
+$ iwashere session continue
+Session continued
 
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
+# End of day
+$ iwashere session end --summary "Added 3 new endpoints, tests passing"
+Session ended (total: 4h 30m)
+
+# Next morning
+$ iwashere status
+Last session: 'Add new endpoints' (4h 30m)
+Last note: Implement validation middleware
 ```
 
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
+## Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Server Functions
+Fork the repository
 
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
+Create your feature branch (git checkout -b feature/amazing)
 
-```tsx
-import { createServerFn } from '@tanstack/react-start'
+Commit your changes (git commit -m 'Add amazing feature')
 
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
+Push to the branch (git push origin feature/amazing)
 
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
+Open a Pull Request
+
+## Building from Source
+```bash
+git clone https://github.com/Murchoid/iwashere.git
+cd iwashere
+go build -o iwashere ./cmd/iwashere
+sudo mv iwashere /usr/local/bin/
 ```
 
-## API Routes
+## License
+MIT License - see LICENSE for details.
 
-You can create API routes by using the `server` property in your route definitions:
+## Acknowledgments
+Built with Go
 
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
+used to build itself
 
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
+Inspired by the need to remember context across coding sessions
 
-## Data Fetching
+## Contact
+[GitHub Issues](https://github.com/Murchoid/iwashere/issues): Report a bug
 
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
+Discussions: Join the conversation
 
-For example:
+Twitter/X: @iwashere
 
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+<div align="center"> <sub>Built with ❤️ in Kenya</sub> <br/> <sub>© 2026 iwashere. MIT Licensed.</sub> </div> 
