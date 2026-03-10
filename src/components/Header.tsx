@@ -22,7 +22,7 @@ export default function Header() {
             <Link to="/documentation" className="hover:text-primary transition-colors">
               Documentation
             </Link>
-            <a href="#" className="hover:text-primary transition-colors">
+            <a href="https://github.com/Murchoid/iwashere" className="hover:text-primary transition-colors">
               GitHub
             </a>
           </div>
