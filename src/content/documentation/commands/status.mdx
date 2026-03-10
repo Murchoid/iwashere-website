@@ -33,9 +33,49 @@ What's next?
 
 ```
 
+### What Status Shows
+
+|Section	|Description|
+|-------|-------------|
+|**Session**	|Active session name and duration|
+|**Last Note**	|Most recent note in current session|
+|**Modified Files**	|Files changed (from notes + git)|
+|**Related Notes**	|Recent notes in current session|
+|**Next Steps**|	Helpful command suggestions|
+
+
+### With No Active Session
+
+```
+$ iwashere status
+iwashere status
+=================
+
+No active session
+   Start one with: iwashere session start "session name"
+
+Last note: Fix memory leak (2 days ago)
+
+ What's next?
+   • Start a session
+   • View all notes: iwashere list
+   ```
+
+### With Long-Running Session Warning
+
+```
+$ iwashere status
+iwashere status
+=================
+
+You were working on 'Database Work' (3 days ago) ⚠️
+   This session has been running for 3 days!
+   Did you forget to end it?
+```
+
 ## Related Commands
-- show - View a specific note
+- [session start](/documentation/session-start) - Begin new session
 
-- tag list - List notes by tag
+- [session end](/documentation/session-end) - End current session
 
-- branch - Branch-specific notes
+- [list](/documentation/list) - View all notes

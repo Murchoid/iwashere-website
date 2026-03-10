@@ -1,0 +1,45 @@
+# tag remove - Remove Tags from a Note
+
+The `remove` subcommand removes tags from a note.
+
+## Usage
+
+```
+iwashere tag remove <note-id> <tag1>[,<tag2>,...]
+```
+
+## Examples
+
+Remove a single tag
+
+```
+$ iwashere tag remove 4d28a474 bug
+Tags [bug] removed from note # 4d28a474
+```
+
+Remove multiple tags
+
+```
+$ iwashere tag remove 4d28a474 jwt,security
+Tags [jwt,security] removed from note # 4d28a474
+```
+
+Remove all tags
+
+```
+$ iwashere tag remove 4d28a474 --all
+Removed all tags from note 4d28a474
+```
+
+Verification
+
+```
+$ iwashere show 4d28a474
+````
+
+## Related Commands
+- [tag add](/documentation/tags-add) - Add tags
+
+- [tag list](/documentation/tags-list) - List notes by tag
+
+- [edit](/documentation/edit - Edit note (including tags)

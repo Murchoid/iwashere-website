@@ -1,7 +1,8 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 import { useState, useEffect } from 'react'
-import { ChevronRight, Menu, X, ExternalLink, Edit, Search } from 'lucide-react'
+import { ChevronRight, Menu, X, ExternalLink, Edit, Search, Github, Download, BookOpen } from 'lucide-react'
 import Logo from '#/components/Logo'
+import Footer from '#/components/Footer'
 
 export const Route = createFileRoute('/documentation')({
   component: DocsLayout,
@@ -23,9 +24,9 @@ function DocsLayout() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link to="/" className="flex items-center gap-2">
-              <Logo/>
+              <Logo />
             </Link>
-            
+
             {/* Breadcrumb */}
             <nav className="hidden md:flex items-center text-sm text-muted-foreground">
               <Link to="/" className="hover:text-primary transition">Home</Link>
@@ -146,9 +147,10 @@ function DocsLayout() {
                 </h4>
                 <ul className="space-y-1">
                   {[
-                    { href: '/documentation/tags/add', label: 'add' },
-                    { href: '/documentation/tags/remove', label: 'remove' },
-                    { href: '/documentation/tags/list', label: 'list' },
+                    { href: '/documentation/tags-overview', label: 'Overview' },
+                    { href: '/documentation/tags-add', label: 'add' },
+                    { href: '/documentation/tags-remove', label: 'remove' },
+                    { href: '/documentation/tags-list', label: 'list' },
                   ].map(item => (
                     <li key={item.href}>
                       <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>
@@ -198,9 +200,10 @@ function DocsLayout() {
                 </h4>
                 <ul className="space-y-1">
                   {[
-                    { href: '/documentation/team/sharing', label: 'Sharing notes' },
-                    { href: '/documentation/team/setup', label: 'Team setup' },
-                    { href: '/documentation/team/receiving', label: 'Receiving notes' },
+                    { href: '/documentation/sharing-overview', label: 'Overview' },
+                    { href: '/documentation/share', label: 'Sharing notes' },
+                    { href: '/documentation/setup', label: 'Team setup' },
+                    { href: '/documentation/show-shared', label: 'Receiving notes' },
                   ].map(item => (
                     <li key={item.href}>
                       <DocSidebarLink href={item.href}>{item.label}</DocSidebarLink>
@@ -298,48 +301,8 @@ function DocsLayout() {
           </main>
         </div>
       </div>
-      {/* Footer */}
-      <footer className="border-t border-border bg-card mt-12">
-        <div className="container mx-auto px-4 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Logo/>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Never lose your coding context again.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Documentation</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/documentation/getting-started" className="hover:text-primary">Getting Started</Link></li>
-                <li><Link to="/documentation/commands" className="hover:text-primary">Commands</Link></li>
-                <li><Link to="/documentation/sessions" className="hover:text-primary">Sessions</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/downloads" className="hover:text-primary">Downloads</Link></li>
-                <li><Link to="/changelog" className="hover:text-primary">Changelog</Link></li>
-                <li><a href="https://github.com/Murchoid/iwashere" className="hover:text-primary">GitHub</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Community</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary">Discord</a></li>
-                <li><a href="#" className="hover:text-primary">Twitter</a></li>
-                <li><a href="#" className="hover:text-primary">Report Issue</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} iwashere. MIT Licensed. Built with Go.
-          </div>
-        </div>
-      </footer>
+
+    <Footer/> 
     </div>
   )
 }
@@ -347,14 +310,14 @@ function DocsLayout() {
 // Sidebar Link Component
 function DocSidebarLink({ href, children }: { href: string; children: React.ReactNode }) {
   const isActive = location.pathname === href
-  
+
   return (
     <Link
       to={href}
       className={`
         block px-3 py-1.5 text-sm rounded-md transition
-        ${isActive 
-          ? 'bg-primary/10 text-primary font-medium' 
+        ${isActive
+          ? 'bg-primary/10 text-primary font-medium'
           : 'text-muted-foreground hover:text-foreground hover:bg-muted'
         }
       `}

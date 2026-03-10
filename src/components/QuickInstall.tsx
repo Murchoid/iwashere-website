@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Copy, Check } from "lucide-react";
 import * as Tabs from "@radix-ui/react-tabs"
+import { Link } from "@tanstack/react-router";
 
 const installCommands = {
   linux: {
@@ -132,12 +133,12 @@ export function QuickInstall() {
           </Tabs.Root>
 
           <div className="text-center mt-6">
-            <a
-              href="#"
+            <Link
+              to="/documentation/installation"
               className="text-primary hover:underline inline-flex items-center gap-1"
             >
               See all installation methods →
-            </a>
+            </Link>
           </div>
         </motion.div>
       </div>

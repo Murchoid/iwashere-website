@@ -1,0 +1,88 @@
+# share - Share Notes with Teammates
+
+The `share` command allows you to share notes with other developers securely.
+
+## Usage
+
+```
+iwashere share [note-id] --with <recipient>[,<recipient2>...]
+```
+
+### Options
+
+Option	Description
+- --with	Recipient email(s) or @team name
+- --session	Share entire session
+- --message	Optional personal message
+
+## Examples
+
+Share latest note
+
+```
+$ iwashere share --with alice@example.com
+
+Shared with 1 recipient(s)
+
+Next steps:
+   git add .iwashere-shared/
+   git commit -m "Share notes with team"
+   git push
+
+Recipients will need to pull and use 'iwashere show-shared'
+```
+
+Share a specific note
+
+```
+$ iwashere share 4d28a474 --with bob@example.com
+```
+
+Share with a team
+
+```
+$ iwashere share 4d28a474 --with @backend-team
+```
+
+Share entire session
+
+```
+$ iwashere share --session auth-work --with alice@example.com
+```
+
+## What Gets Shared
+
+When you share a note, recipients receive:
+
+1. The note message
+
+2. Creation timestamp
+
+3. Tags
+
+4. Session name (if applicable)
+
+5. Your name/email as the sharer
+
+
+## Not shared:
+
+1. Your private git context (branches, files)
+
+2. Other notes in the same session (unless you share the whole session)
+
+3. Your configuration
+
+## After Sharing
+The shared notes are saved in .iwashere-shared/ which you can commit to git:
+
+```
+git add .iwashere-shared/
+git commit -m "Share auth notes with team"
+git push
+```
+
+Your teammate then pulls and runs `iwashere show-shared`.
+
+## Related Commands
+[show-shared](/documentation/show-shared) - View shared notes

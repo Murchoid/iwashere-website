@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Download, BookOpen } from "lucide-react";
 import { TerminalWindow } from "./TerminalWindow";
+import { Link } from "@tanstack/react-router";
 
 export function Hero() {
   return (
@@ -39,7 +40,9 @@ export function Hero() {
                 className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
               >
                 <Download className="w-5 h-5" />
-                Download v0.2.10
+                <a href="https://github.com/Murchoid/iwashere/releases/latest">
+                Download Latest
+                </a>
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.02 }}
@@ -47,7 +50,9 @@ export function Hero() {
                 className="px-8 py-4 border-2 border-border rounded-lg font-semibold flex items-center justify-center gap-2 hover:border-primary transition-colors"
               >
                 <BookOpen className="w-5 h-5" />
+                <Link to="/documentation">
                 View Documentation
+                </Link>
               </motion.button>
             </div>
           </motion.div>

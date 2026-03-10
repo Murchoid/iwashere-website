@@ -1,0 +1,55 @@
+# tag add - Add Tags to a Note
+
+The `add` subcommand adds tags to an existing note.
+
+## Usage
+
+```
+iwashere tag add <note-id> <tag1>[,<tag2>,...]
+```
+
+##Examples
+
+Add a single tag
+
+```
+$ iwashere tag add 4d28a474 bug
+New tag added to note # 4d28a474
+```
+
+Add multiple tags
+
+```
+$ iwashere tag add 4d28a474 auth,jwt,security
+New tag added to note # 4d28a474
+```
+
+Add tags during note creation
+
+```
+$ iwashere add "Fix login bug" --tags bug,auth
+```
+The note gets saved with tags: bug, auth
+
+View tags in list
+
+```
+$ iwashere list
+
+[2h ago] 4d28a474: Fix login bug
+  # bug, auth
+```
+
+## Notes
+- Tags are case-insensitive (Bug = bug)
+
+- Tags are stored as lowercase
+
+- Duplicate tags are automatically handled
+
+## Related Commands
+[tag remove](/documentation/tags-remove) - Remove tags
+
+[tag list](/documentation/tags-list) - List notes by tag
+
+[list [tag]](/documentation/tags-list) - Filter notes by tag

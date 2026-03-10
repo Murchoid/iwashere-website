@@ -1,0 +1,58 @@
+# tag list - List Notes by Tag
+
+The `list` subcommand shows all notes with a specific tag, or lists all tags in use.
+
+## Usage
+
+```
+iwashere tag list [tag]
+```
+
+## Examples
+
+List all notes with a tag
+
+```
+$ iwashere tag list bug
+
+[2h ago] (main): Fix login bug
+[yesterday] (main): Memory leak in connection pool
+```
+
+List all tags in use
+
+```
+$ iwashere tag list
+All Tags
+============
+
+bug (3 notes)
+auth (5 notes)
+jwt (2 notes)
+performance (1 note)
+```
+
+Tag cloud view
+
+```
+$ iwashere tag list --cloud
+
+bug        ****
+auth       *****
+jwt        **
+performance *
+```
+Combined with other filters
+
+```
+$ iwashere tag list bug --limit 5
+$ iwashere tag list auth --since "this week"
+```
+
+## Related Commands
+- [list [tag]](/documentation/tags-list)- Filter notes by tag
+
+- [tag add](/documentation/tags-add) - Add tags
+
+- [tag remove](/documentation/tags-remove) - Remove tags
+
