@@ -36,12 +36,13 @@ iwashere understands natural language time expressions:
 |----------|-------------|
 |--at "tomorrow 9:00"|	Tomorrow at 9:00 AM|
 |--at "tomorrow 21:00"|	Tomorrow at 9:00 PM|
-|--at "in 2 hours"|	2 hours from now|
+|--at "today 21:00"|	Tomorrow at 9:00 PM|
+|--at "today 9:00"|	Tomorrow at 9:00 AM|
+|--at "in 2h"|	2 hours from now|
+|--at "in 30m"|	30 minutes from now|
 |--at "next Monday"|	Next Monday at 9:00 AM (default)|
-|--at "Friday 5pm"|	This Friday at 5:00 PM|
+|--at "Friday 17:00"|	This Friday at 5:00 PM|
 |--at "2025-12-31 23:59"|	Specific date and time|
-|--at "in 30 minutes"|	30 minutes from now|
-|--at "next week"|	Same day next week at current time|
 
 ## How Reminders Are Stored
 Reminders are stored in your .iwashere/reminders/ file:
