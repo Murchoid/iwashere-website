@@ -31,54 +31,47 @@ Reminder marked as done
 ```bash
 # Start a session and set a reminder to end it
 $ iwashere session start "Database Optimization"
-$ iwashere remind --current-session --at "in 3 hours"
+$ iwashere remind --current-session --at "in 3h"
  #Reminder set to end session in 3 hours
 ```
 
 ### With Tags
 ```bash
 # Set reminders for all notes with a specific tag
-$ iwashere remind --tag urgent --at "tomorrow"
+$ iwashere remind --tag urgent --at "tomorrow 8:00"
  #Reminders set for 3 notes tagged 'urgent'
-```
-
-### With Git
-```bash
-# Remind yourself when you switch to a specific branch
-$ iwashere remind 4d28a474 --on-branch feature/login
- #Reminder will trigger when you switch to branch 'feature/login'
 ```
 
 ## Best Practices
 1. Be Specific with Times
 ```bash
 # Good
-$ iwashere remind 123 --at "tomorrow 9am"
+$ iwashere remind 123 --at "tomorrow 9:00"
 
 # Better
-$ iwashere remind 123 --at "tomorrow 9am" --message "Review PR before standup"
+$ iwashere remind 123 --at "tomorrow 9:00" --message "Review PR before standup"
 ```
 
 2. Use Repeating Reminders for Regular Tasks
 ```bash
 # Daily stand-up prep
-$ iwashere remind 456 --at "9:30am" --repeat daily
+$ iwashere remind 456 --at "9:30" --repeat daily
 
 # Weekly review
-$ iwashere remind 789 --at "Friday 4pm" --repeat weekly
+$ iwashere remind 789 --at "Friday 16:00" --repeat weekly
 ```
 
 3. Combine with Tags for Organization
 ```bash
 $ iwashere add "Update documentation" --tags docs,priority
-$ iwashere remind --tag priority --at "tomorrow"
+$ iwashere remind --tag priority --at "tomorrow 7:00"
 ```
 
 4. Set Reminders Immediately
 ```bash
 # When you realize you need a reminder, set it right away
 $ iwashere add "Fix memory leak"
-$ iwashere remind 123 --at "in 2 hours"  # Do this immediately
+$ iwashere remind 123 --at "in 2h"  # Do this immediately
 ```
 
 ## Troubleshooting
