@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect, useMemo } from "react";
 import { Copy, Check, Terminal, Cpu, Apple, AppWindowIcon, Download } from "lucide-react";
-import { Link } from "@tanstack/react-router";
-import { getLatestVersion } from "#/services/useFetchGitInfo";
+import { getReleases, getLatestVersion } from "#/services/useFetchGitInfo";
 import type { ReleaseAsset } from "#/api/api";
 
 
@@ -33,7 +32,7 @@ const installCommands = {
     icon: Cpu,
     prompt: "user@devbox:~$",
     distros: ["Debian/Ubuntu", "Fedora/RHEL", "Arch"],
-    getCommands: (version: string, commit: string) => [
+    getCommands: (version: string) => [
       `curl -L https://github.com/Murchoid/iwashere/releases/download/${version}/iwashere_${version.replace("v", "")}_linux_amd64.deb -o iwashere.deb`,
       "sudo dpkg -i iwashere.deb",
       "iwashere version"
@@ -83,18 +82,19 @@ export function QuickInstall() {
   const [copied, setCopied] = useState(false);
   const [typing, setTyping] = useState(true);
   const [visibleLines, setVisibleLines] = useState(0);
-  const { data: releaseData, isLoading, error } = getLatestVersion() 
+  const { data: releaseData, isLoading: releaseLoading, error: releaseError } = getReleases() 
+  const { data: versionData, isLoading: versionLoading, error: versionError } = getLatestVersion() 
 
   // Memoize version info and commands based on release data
   const versionInfo = useMemo(() => {
-    if (!releaseData?.tag_name) return { version: "v0.3.2", commit: "7021b8785e62f" };
-    return getVersionInfo(releaseData.tag_name);
-  }, [releaseData]);
+    if (!versionData?.tag_name) return { version: "v0.3.2", commit: "7021b8785e62f" };
+    return getVersionInfo(versionData.tag_name);
+  }, [versionData]);
 
   const currentOS = installCommands[activeTab as keyof typeof installCommands];
   
   const currentCommands = useMemo(() => {
-    return currentOS.getCommands(versionInfo.version, versionInfo.commit);
+    return currentOS.getCommands(versionInfo.version);
   }, [currentOS, versionInfo]);
 
   const currentOutput = useMemo(() => {
@@ -103,12 +103,14 @@ export function QuickInstall() {
   }, [currentOS, versionInfo, activeTab]);
 
   const downloadUrls = useMemo(() => {
-    if (!releaseData?.assets) return { linux: "#", macos: "#", windows: "#" };
-    console.log(releaseData.tag_name)
+    if (!releaseData) return { linux: "#", macos: "#", windows: "#" };
+    
+    let latest = releaseData.length-1;
+
     return {
-      linux: getDownloadUrl(releaseData.assets, "linux"),
-      macos: getDownloadUrl(releaseData.assets, "macos"),
-      windows: getDownloadUrl(releaseData.assets, "windows")
+      linux: getDownloadUrl(releaseData[latest].assets, "linux"),
+      macos: getDownloadUrl(releaseData[latest].assets, "macos"),
+      windows: getDownloadUrl(releaseData[latest].assets, "windows")
     };
   }, [releaseData]);
 
@@ -151,7 +153,7 @@ export function QuickInstall() {
     }
   };
 
-  if (isLoading) {
+  if (versionLoading || releaseLoading) {
     return (
       <section id="install" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="max-w-4xl mx-auto text-center">
@@ -161,8 +163,8 @@ export function QuickInstall() {
     );
   }
 
-  if (error) {
-    console.error("Failed to load release info:", error);
+  if (versionError || releaseError) {
+    console.error("Failed to load release info:", releaseError);
   }
 
   return (
@@ -364,12 +366,12 @@ export function QuickInstall() {
           className="text-center mt-6 font-mono text-sm"
         >
           <span className="text-muted-foreground">$ </span>
-          <Link
-            to="/documentation/installation"
+          <a
+            href="/documentation/installation"
             className="text-primary hover:underline hover:text-primary/80 transition"
           >
             See all installation methods
-          </Link>
+          </a>
           <span className="text-muted-foreground animate-pulse ml-1">_</span>
         </motion.div>
       </div>

@@ -25,7 +25,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="/documentation/installationt" className="hover:text-primary transition-colors inline-flex items-center gap-2">
+                <a href="/documentation/installation" className="hover:text-primary transition-colors inline-flex items-center gap-2">
                   <Download className="w-4 h-4" />
                   Downloads
                 </a>
@@ -42,16 +42,16 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Documentation</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/documentation/getting-started" className="hover:text-primary">Getting Started</Link></li>
-              <li><Link to="/documentation/commands" className="hover:text-primary">Commands</Link></li>
-              <li><Link to="/documentation/session-overview" className="hover:text-primary">Sessions</Link></li>
+              <li><a href="/documentation/getting-started" className="hover:text-primary">Getting Started</a></li>
+              <li><a href="/documentation/commands-overview" className="hover:text-primary">Commands</a></li>
+              <li><a href="/documentation/session-overview" className="hover:text-primary">Sessions</a></li>
             </ul>
           </div>
           <div>
             <h4 className="font-semibold mb-4">Resources</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/documentation/installation" className="hover:text-primary">Downloads</Link></li>
-              <li><Link to="https://github.com/Murchoid/iwashere/releases" className="hover:text-primary">Changelog</Link></li>
+              <li><a href="/documentation/installation" className="hover:text-primary">Downloads</a></li>
+              <li><a href="https://github.com/Murchoid/iwashere/releases" className="hover:text-primary">Changelog</a></li>
               <li><a href="https://github.com/Murchoid/iwashere" className="hover:text-primary">GitHub</a></li>
             </ul>
           </div>

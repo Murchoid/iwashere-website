@@ -1,11 +1,18 @@
 export interface ReleaseAsset {
-  name: string;
-  browser_download_url: string;
-  content_type: string;
-  download_count: number;
+    name: string;
+    browser_download_url: string;
+    content_type: string;
+    download_count: number;
 }
 
-export interface GitHubRelease {
+export interface BackendRepoStats {
+  stargazers_count: number;
+  forks_count: number;
+  subscribers_count: number;
+  open_issues_count: number;
+}
+
+export interface BackendRelease {
   id: number;
   tag_name: string;
   name: string;
@@ -13,77 +20,97 @@ export interface GitHubRelease {
   assets: ReleaseAsset[];
 }
 
-export interface GitHubRepoStats {
-  stargazers_count: number;
-  forks_count: number;
-  subscribers_count: number;
-  open_issues_count: number;
+export interface BackendContributors {
+  contributors: number;
 }
 
-// Fetch repository info (stars, etc.)
-export const fetchRepoStats = async (): Promise<GitHubRepoStats> => {
-  const response = await fetch('https://api.github.com/repos/Murchoid/iwashere');
-  if (!response.ok) throw new Error('Failed to fetch repo stats');
+export interface BackendVersion {
+  version: string;
+}
+
+interface BackendDownloads {
+  totalDownloads: number;
+}
+
+const API_BASE_URL = 'http://127.0.0.1:4000';
+
+// Helper for fetch with error handling
+async function fetchFromBackend<T>(endpoint: string): Promise<T> {
+  const response = await fetch(`${API_BASE_URL}${endpoint}`);
+  
+  if (!response.ok) {
+    throw new Error(`Backend error: ${response.status} - ${response.statusText}`);
+  }
+  
   return response.json();
+}
+
+// Fetch repository info (stars, forks, etc.)
+export const fetchRepoStats = async (): Promise<BackendRepoStats> => {
+  const data = await fetchFromBackend<BackendRepoStats>('/api/stats');
+  return {
+    stargazers_count: data.stargazers_count,
+    forks_count: data.forks_count,
+    subscribers_count: data.subscribers_count,
+    open_issues_count: data.open_issues_count,
+  };
 };
 
-// Fetch all releases to calculate total downloads
-export const fetchAllReleases = async (): Promise<GitHubRelease[]> => {
-  let page = 1;
-  let allReleases: GitHubRelease[] = [];
-  let hasMore = true;
-
-  while (hasMore) {
-    const response = await fetch(
-      `https://api.github.com/repos/Murchoid/iwashere/releases?page=${page}&per_page=100`
-    );
-    
-    if (!response.ok) break;
-    
-    const releases = await response.json();
-    if (releases.length === 0) {
-      hasMore = false;
-    } else {
-      allReleases = [...allReleases, ...releases];
-      page++;
-    }
-  }
-  
-  return allReleases;
+// Fetch latest release info
+export const fetchLatestRelease = async (): Promise<BackendRelease> => {
+  const data = await fetchFromBackend<BackendRelease>('/api/release/latest');
+  return {
+    id: data.id,
+    tag_name: data.tag_name,
+    name: data.name,
+    published_at: data.published_at,
+    assets: data.assets,
+  };
 };
 
-// Fetch contributors
+// Fetch all releases (for download history)
+export const fetchAllReleases = async (): Promise<BackendRelease[]> => {
+  const data = await fetchFromBackend<BackendRelease[]>('/api/releases');
+  return data.map(release => ({
+    id: release.id,
+    tag_name: release.tag_name,
+    name: release.name,
+    published_at: release.published_at,
+    assets: release.assets,
+  }));
+};
+
+// Fetch total downloads
+export const fetchTotalDownloads = async (): Promise<number> => {
+  const data = await fetchFromBackend<BackendDownloads>('/api/downloads/total');
+  return data.totalDownloads;
+};
+
+// Fetch contributors count
 export const fetchContributors = async (): Promise<number> => {
-  const response = await fetch(
-    'https://api.github.com/repos/Murchoid/iwashere/contributors?per_page=1'
-  );
-  
-  if (!response.ok) return 0;
-  
-  // Get the Link header to determine total contributors count
-  const linkHeader = response.headers.get('Link');
-  if (linkHeader) {
-    const match = linkHeader.match(/page=(\d+)>; rel="last"/);
-    if (match) {
-      return parseInt(match[1]);
-    }
-  }
-  
-  // If no Link header, fetch all contributors (fallback)
-  const allContributors = await fetch(
-    'https://api.github.com/repos/Murchoid/iwashere/contributors?per_page=100'
-  );
-  const contributors = await allContributors.json();
-  return contributors.length;
+  const data = await fetchFromBackend<BackendContributors>('/api/contributors');
+  return data.contributors;
 };
 
-export const fetchLatestVersion = async ()  => {
-    try {
-        const res = await fetch("https://api.github.com/repos/Murchoid/iwashere/releases/latest")
-        const data = await res.json()
-        return data
+// Fetch latest version
+export const fetchLatestVersion = async (): Promise<{ tag_name: string }> => {
+  const data = await fetchFromBackend<BackendVersion>('/api/version');
+  return { tag_name: data.version };
+};
 
-    } catch (err){
-        console.log(err)
-    }
+// Optional: Combined data fetcher for homepage stats
+export const fetchAllStats = async () => {
+  const [stats, latestRelease, totalDownloads, contributors] = await Promise.all([
+    fetchRepoStats(),
+    fetchLatestRelease(),
+    fetchTotalDownloads(),
+    fetchContributors(),
+  ]);
+
+  return {
+    stats,
+    latestRelease,
+    totalDownloads,
+    contributors,
+  };
 }

@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { Star, Download, Tag, Users, Cpu, HardDrive, Network } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
-import type { GitHubRelease } from "#/api/api";
+import type { BackendRelease } from "#/api/api";
 import { getContributors, getReleases, getRepoStats } from "#/services/useFetchGitInfo";
 
 
 // Calculate total downloads across all releases
-const calculateTotalDownloads = (releases: GitHubRelease[]): number => {
+const calculateTotalDownloads = (releases: BackendRelease[]): number => {
   return releases.reduce((total, release) => {
     const releaseDownloads = release.assets.reduce(
       (sum, asset) => sum + (asset.download_count || 0),
@@ -17,17 +17,12 @@ const calculateTotalDownloads = (releases: GitHubRelease[]): number => {
 };
 
 // Get latest version
-const getLatestVersion = (releases: GitHubRelease[]): string => {
+const getLatestVersion = (releases: BackendRelease[]): string => {
   if (!releases.length) return "v0.0.0";
   return releases[0].tag_name;
 };
 
-// Generate graph data for visual representation
-const generateGraphData = (releases: GitHubRelease[], type: 'stars' | 'downloads' | 'version') => {
-  // For now, return placeholder data
-  // I will later switch to a database
-  return [0, 6, 8, 7, 10, 9, 12, 14, 16, 18, 20, 19];
-};
+
 
 export function StatsBar() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -58,7 +53,6 @@ export function StatsBar() {
         label: "GitHub Stars", 
         value: isLoading ? "..." : (repoStats?.stargazers_count?.toLocaleString() || "0"),
         color: "text-yellow-500",
-        graph: generateGraphData(releases || [], 'stars'),
         trend: repoStats?.stargazers_count ? `${((repoStats.stargazers_count / 1000).toFixed(1))}k` : "0",
       },
       { 
@@ -66,7 +60,6 @@ export function StatsBar() {
         label: "Total Downloads", 
         value: isLoading ? "..." : (totalDownloads?.toLocaleString() || "0"),
         color: "text-green-500",
-        graph: generateGraphData(releases || [], 'downloads'),
         trend: totalDownloads ? `${((totalDownloads / 1000).toFixed(1))}k` : "0",
       },
       { 
@@ -74,7 +67,6 @@ export function StatsBar() {
         label: "Latest Version", 
         value: isLoading ? "..." : latestVersion,
         color: "text-blue-500",
-        graph: generateGraphData(releases || [], 'version'),
         trend: releases?.[0]?.published_at ? new Date(releases[0].published_at).toLocaleDateString() : "",
       },
       { 
@@ -82,11 +74,11 @@ export function StatsBar() {
         label: "Contributors", 
         value: isLoading ? "..." : (contributorCount?.toString() || "0"),
         color: "text-purple-500",
-        graph: generateGraphData(releases || [], 'stars'),
         trend: `${contributorCount || 0} total`,
       },
     ];
   }, [repoStats, totalDownloads, latestVersion, contributorCount, statsLoading, releasesLoading, contributorsLoading]);
+
 
   // Simulate changing system load
   useEffect(() => {
@@ -96,6 +88,8 @@ export function StatsBar() {
     return () => clearInterval(interval);
   }, []);
 
+
+  
   // Calculate release download breakdown
   const releaseBreakdown = useMemo(() => {
     if (!releases) return [];
@@ -148,22 +142,6 @@ export function StatsBar() {
               `} />
               
               <div className="relative p-4 rounded-lg border border-border/50 bg-[#0A0A0F] overflow-hidden">
-                {/* Mini sparkline graph */}
-                <div className="absolute bottom-0 right-0 opacity-20">
-                  <svg width="80" height="40" viewBox="0 0 80 40" className="text-primary">
-                    <polyline
-                      points={stat.graph.map((val, i) => {
-                        const x = (i / (stat.graph.length - 1)) * 80;
-                        const y = 40 - (val / Math.max(...stat.graph)) * 30;
-                        return `${x},${y}`;
-                      }).join(' ')}
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      fill="none"
-                      className={stat.color}
-                    />
-                  </svg>
-                </div>
 
                 {/* Animated cursor for active stat */}
                 {activeIndex === index && (
