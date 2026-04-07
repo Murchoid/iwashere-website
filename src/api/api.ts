@@ -32,7 +32,7 @@ interface BackendDownloads {
   totalDownloads: number;
 }
 
-const API_BASE_URL = 'http://127.0.0.1:4000';
+const API_BASE_URL = 'https://iwashere-website-backend.onrender.com';
 
 // Helper for fetch with error handling
 async function fetchFromBackend<T>(endpoint: string): Promise<T> {
