@@ -74,8 +74,7 @@ for (const release of releases) {
 
 
 export const allContributors = async (): Promise<number> => {
-  const allContributors = await await githubRequest("/repos/Murchoid/iwashere/contributors?per_page=100")
-  const contributors = await allContributors.json() as any[];
+  const contributors = await githubRequest("/repos/Murchoid/iwashere/contributors?per_page=100")
   return contributors.length;
 };
 
