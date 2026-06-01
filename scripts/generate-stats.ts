@@ -74,16 +74,6 @@ for (const release of releases) {
 
 
 export const allContributors = async (): Promise<number> => {
-  const response = await githubRequest("/repos/Murchoid/iwashere/contributors?per_page=1")
-
-
-  const linkHeader = response.headers.get('Link');
-  if (linkHeader) {
-    const match = linkHeader.match(/page=(\d+)>; rel="last"/);
-    if (match) return parseInt(match[1]);
-  }
-
-  // Fallback: fetch all contributors
   const allContributors = await await githubRequest("/repos/Murchoid/iwashere/contributors?per_page=100")
   const contributors = await allContributors.json() as any[];
   return contributors.length;
