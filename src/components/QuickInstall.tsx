@@ -1,30 +1,10 @@
 import { motion } from "framer-motion";
 import { useState, useEffect, useMemo } from "react";
 import { Copy, Check, Terminal, Cpu, Apple, AppWindowIcon, Download } from "lucide-react";
-import { getReleases, getLatestVersion } from "#/services/useFetchGitInfo";
-import type { ReleaseAsset } from "#/api/api";
+import type { stats } from "scripts/generate-stats";
+import { getStats } from "#/services/useFetchGitInfo";
 
 
-const getDownloadUrl = (assets: ReleaseAsset[], os: string, arch: string = "amd64") => {
-  const patterns = {
-    linux: [`linux_${arch}`, 'linux_amd64', '.deb', '.rpm', '.AppImage'],
-    macos: ['darwin', 'macOS', 'apple', '.pkg'],
-    windows: ['windows', '.exe', '.zip']
-  };
-  
-  const osPatterns = patterns[os as keyof typeof patterns] || [];
-  const asset = assets.find(asset => 
-    osPatterns.some(pattern => asset.name.toLowerCase().includes(pattern))
-  );
-  
-  return asset?.browser_download_url || "#";
-};
-
-const getVersionInfo = (tagName: string) => {
-  const version = tagName.startsWith('v') ? tagName : `v${tagName}`;
-  const commit = "latest"; 
-  return { version, commit };
-};
 
 const installCommands = {
   linux: {
@@ -82,14 +62,10 @@ export function QuickInstall() {
   const [copied, setCopied] = useState(false);
   const [typing, setTyping] = useState(true);
   const [visibleLines, setVisibleLines] = useState(0);
-  const { data: releaseData, isLoading: releaseLoading, error: releaseError } = getReleases() 
-  const { data: versionData, isLoading: versionLoading, error: versionError } = getLatestVersion() 
+  const { data: statsData, isLoading: statsLoading, error: statsError } = getStats()
 
-  // Memoize version info and commands based on release data
-  const versionInfo = useMemo(() => {
-    if (!versionData?.tag_name) return { version: "v0.3.2", commit: "7021b8785e62f" };
-    return getVersionInfo(versionData.tag_name);
-  }, [versionData]);
+  const versionInfo = (statsData as stats).latestVersion
+  const downloadUrls = (statsData as stats).downloadUrls
 
   const currentOS = installCommands[activeTab as keyof typeof installCommands];
   
@@ -102,17 +78,7 @@ export function QuickInstall() {
     return currentOS.getOutput(versionInfo.version, versionInfo.commit, arch);
   }, [currentOS, versionInfo, activeTab]);
 
-  const downloadUrls = useMemo(() => {
-    if (!releaseData) return { linux: "#", macos: "#", windows: "#" };
-    
-    let latest = releaseData.length-1;
 
-    return {
-      linux: getDownloadUrl(releaseData[latest].assets, "linux"),
-      macos: getDownloadUrl(releaseData[latest].assets, "macos"),
-      windows: getDownloadUrl(releaseData[latest].assets, "windows")
-    };
-  }, [releaseData]);
 
   // Simulate terminal typing effect
   useEffect(() => {
@@ -153,7 +119,7 @@ export function QuickInstall() {
     }
   };
 
-  if (versionLoading || releaseLoading) {
+  if (statsLoading) {
     return (
       <section id="install" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="max-w-4xl mx-auto text-center">
@@ -163,8 +129,8 @@ export function QuickInstall() {
     );
   }
 
-  if (versionError || releaseError) {
-    console.error("Failed to load release info:", releaseError);
+  if (statsError) {
+    console.error("Failed to load release info:", statsError);
   }
 
   return (

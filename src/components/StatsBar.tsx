@@ -1,83 +1,52 @@
+import { getStats } from "#/services/useFetchGitInfo";
 import { motion } from "framer-motion";
 import { Star, Download, Tag, Users, Cpu, HardDrive, Network } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
-import type { BackendRelease } from "#/api/api";
-import { getContributors, getReleases, getRepoStats } from "#/services/useFetchGitInfo";
-
-
-// Calculate total downloads across all releases
-const calculateTotalDownloads = (releases: BackendRelease[]): number => {
-  return releases.reduce((total, release) => {
-    const releaseDownloads = release.assets.reduce(
-      (sum, asset) => sum + (asset.download_count || 0),
-      0
-    );
-    return total + releaseDownloads;
-  }, 0);
-};
-
-// Get latest version
-const getLatestVersion = (releases: BackendRelease[]): string => {
-  if (!releases.length) return "v0.0.0";
-  return releases[0].tag_name;
-};
-
+import type { stats } from "scripts/generate-stats";
 
 
 export function StatsBar() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [systemLoad, setSystemLoad] = useState(42);
-  const {data: releases, isLoading: releasesLoading, error: releasesError} = getReleases()
-  const {data: repoStats, isLoading: statsLoading, error: statsError} = getRepoStats()
-  const {data: contributorCount, isLoading: contributorsLoading} = getContributors()
+  const {data: statsData, isLoading: statsDataLoading, error: statsDataError} = getStats()
   
 
-  // Calculate derived stats
-  const totalDownloads = useMemo(() => {
-    if (!releases) return 0;
-    return calculateTotalDownloads(releases);
-  }, [releases]);
-
-  const latestVersion = useMemo(() => {
-    if (!releases) return "v0.0.0";
-    return getLatestVersion(releases);
-  }, [releases]);
-
+  
   // Prepare stats array with real data
   const stats = useMemo(() => {
-    const isLoading = statsLoading || releasesLoading || contributorsLoading;
+    const isLoading =  statsDataLoading;
     
     return [
       { 
         icon: Star, 
         label: "GitHub Stars", 
-        value: isLoading ? "..." : (repoStats?.stargazers_count?.toLocaleString() || "0"),
+        value: isLoading ? "..." : ((statsData as stats).stars || "0"),
         color: "text-yellow-500",
-        trend: repoStats?.stargazers_count ? `${((repoStats.stargazers_count / 1000).toFixed(1))}k` : "0",
+        trend: (statsData as stats).stars ? `${(((statsData as stats).stars / 1000).toFixed(1))}k` : "0",
       },
       { 
         icon: Download, 
         label: "Total Downloads", 
-        value: isLoading ? "..." : (totalDownloads?.toLocaleString() || "0"),
+        value: isLoading ? "..." : ((statsData as stats).downloads?.toLocaleString() || "0"),
         color: "text-green-500",
-        trend: totalDownloads ? `${((totalDownloads / 1000).toFixed(1))}k` : "0",
+        trend: (statsData as stats).downloads ? `${(((statsData as stats).downloads / 1000).toFixed(1))}k` : "0",
       },
       { 
         icon: Tag, 
         label: "Latest Version", 
-        value: isLoading ? "..." : latestVersion,
+        value: isLoading ? "..." : (statsData as stats).latestVersion,
         color: "text-blue-500",
-        trend: releases?.[0]?.published_at ? new Date(releases[0].published_at).toLocaleDateString() : "",
+        trend: (statsData as stats).generatedAt ? new Date((statsData as stats).generatedAt).toLocaleDateString() : "",
       },
       { 
         icon: Users, 
         label: "Contributors", 
-        value: isLoading ? "..." : (contributorCount?.toString() || "0"),
+        value: isLoading ? "..." : ((statsData as stats).contributors.toString() || "0"),
         color: "text-purple-500",
-        trend: `${contributorCount || 0} total`,
+        trend: `${(statsData as stats).contributors || 0} total`,
       },
     ];
-  }, [repoStats, totalDownloads, latestVersion, contributorCount, statsLoading, releasesLoading, contributorsLoading]);
+  }, [statsDataLoading]);
 
 
   // Simulate changing system load
@@ -89,19 +58,10 @@ export function StatsBar() {
   }, []);
 
 
-  
-  // Calculate release download breakdown
-  const releaseBreakdown = useMemo(() => {
-    if (!releases) return [];
-    return releases.slice(0, 5).map(release => ({
-      version: release.tag_name,
-      downloads: release.assets.reduce((sum, asset) => sum + asset.download_count, 0),
-      date: new Date(release.published_at).toLocaleDateString(),
-    }));
-  }, [releases]);
 
-  if (statsError || releasesError) {
-    console.error("Failed to fetch GitHub data:", statsError || releasesError);
+
+  if (statsDataError) {
+    console.error("Failed to fetch GitHub data:", statsDataError);
   }
 
   return (
@@ -114,7 +74,7 @@ export function StatsBar() {
         <div className="text-primary mt-12 mb-10 p-4 rounded-lg bg-muted/30 border border-border/50 font-mono text-sm">
           <span>$ system_monitor --stats</span>
           <span className="ml-2">iwashere</span>
-          {!statsLoading && !releasesLoading && (
+          {!statsDataLoading && (
             <span className="ml-4 text-xs text-muted-foreground">
               (Updated: {new Date().toLocaleTimeString()})
             </span>
@@ -185,8 +145,8 @@ export function StatsBar() {
                           initial={{ width: 0 }}
                           whileInView={{ 
                             width: index === 0 
-                              ? `${Math.min((repoStats?.stargazers_count || 0) / 1000, 100)}%`
-                              : `${Math.min(totalDownloads / 10000, 100)}%`
+                              ? `${Math.min(((statsData as stats).stars || 0) / 1000, 100)}%`
+                              : `${Math.min((statsData as stats).downloads / 10000, 100)}%`
                           }}
                           viewport={{ once: true }}
                           className={`h-full ${stat.color.replace('text', 'bg')}`}
@@ -204,29 +164,6 @@ export function StatsBar() {
             </motion.div>
           ))}
         </div>
-
-        {/* Release download breakdown */}
-        {releaseBreakdown.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-6 p-4 rounded-lg border border-border/30 bg-muted/20"
-          >
-            <div className="text-xs font-mono text-primary mb-3">$ release_stats --recent</div>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
-              {releaseBreakdown.map((release) => (
-                <div key={release.version} className="text-xs font-mono">
-                  <div className="text-primary">{release.version}</div>
-                  <div className="text-muted-foreground">
-                    {release.downloads.toLocaleString()} downloads
-                  </div>
-                  <div className="text-muted-foreground/50 text-[10px]">{release.date}</div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
 
         {/* System info footer */}
         <div className="mt-6 flex items-center justify-between font-mono text-xs border-t border-border/30 pt-4">
