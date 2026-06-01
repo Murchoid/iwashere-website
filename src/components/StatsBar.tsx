@@ -10,8 +10,7 @@ export function StatsBar() {
   const [systemLoad, setSystemLoad] = useState(42);
   const {data: statsData, isLoading: statsDataLoading, error: statsDataError} = getStats()
   
-
-  
+ 
   // Prepare stats array with real data
   const stats = useMemo(() => {
     const isLoading =  statsDataLoading;
@@ -22,31 +21,31 @@ export function StatsBar() {
         label: "GitHub Stars", 
         value: isLoading ? "..." : ((statsData as stats).stars || "0"),
         color: "text-yellow-500",
-        trend: (statsData as stats).stars ? `${(((statsData as stats).stars / 1000).toFixed(1))}k` : "0",
+        trend: !isLoading ? `${(((statsData as stats).stars / 1000).toFixed(1))}k` : "0",
       },
       { 
         icon: Download, 
         label: "Total Downloads", 
         value: isLoading ? "..." : ((statsData as stats).downloads?.toLocaleString() || "0"),
         color: "text-green-500",
-        trend: (statsData as stats).downloads ? `${(((statsData as stats).downloads / 1000).toFixed(1))}k` : "0",
+        trend: !isLoading ? `${(((statsData as stats).downloads / 1000).toFixed(1))}k` : "0",
       },
       { 
         icon: Tag, 
         label: "Latest Version", 
-        value: isLoading ? "..." : (statsData as stats).latestVersion,
+        value: isLoading ? "..." : (statsData as stats).latestVersion.version,
         color: "text-blue-500",
-        trend: (statsData as stats).generatedAt ? new Date((statsData as stats).generatedAt).toLocaleDateString() : "",
+        trend: !isLoading ? new Date((statsData as stats).generatedAt).toLocaleDateString() : "",
       },
       { 
         icon: Users, 
         label: "Contributors", 
         value: isLoading ? "..." : ((statsData as stats).contributors.toString() || "0"),
         color: "text-purple-500",
-        trend: `${(statsData as stats).contributors || 0} total`,
+        trend: !isLoading ? ` ${(statsData as stats).contributors || 0} total` : 0,
       },
     ];
-  }, [statsDataLoading]);
+  }, [statsData]);
 
 
   // Simulate changing system load
@@ -57,9 +56,15 @@ export function StatsBar() {
     return () => clearInterval(interval);
   }, []);
 
-
-
-
+    if (statsDataLoading) {
+    return (
+      <section id="install" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="animate-pulse">Loading Github  information...</div>
+        </div>
+      </section>
+    );
+  }
   if (statsDataError) {
     console.error("Failed to fetch GitHub data:", statsDataError);
   }

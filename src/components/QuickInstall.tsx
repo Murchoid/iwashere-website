@@ -64,11 +64,14 @@ export function QuickInstall() {
   const [visibleLines, setVisibleLines] = useState(0);
   const { data: statsData, isLoading: statsLoading, error: statsError } = getStats()
 
-  const versionInfo = (statsData as stats).latestVersion
-  const downloadUrls = (statsData as stats).downloadUrls
 
   const currentOS = installCommands[activeTab as keyof typeof installCommands];
   
+
+
+  const versionInfo = statsLoading ? {version: "v_", commit:"N/A"} : (statsData as stats).latestVersion
+  const downloadUrls = statsLoading ? "#" : (statsData as stats).downloadUrls
+
   const currentCommands = useMemo(() => {
     return currentOS.getCommands(versionInfo.version);
   }, [currentOS, versionInfo]);
@@ -119,7 +122,7 @@ export function QuickInstall() {
     }
   };
 
-  if (statsLoading) {
+      if (statsLoading) {
     return (
       <section id="install" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="max-w-4xl mx-auto text-center">
