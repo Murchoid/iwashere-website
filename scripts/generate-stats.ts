@@ -37,9 +37,9 @@ export interface IwashereVersion {
 }
 
 
-export const repoStats = await githubRequest("repos/Murchoid/iwashere") as GitHubRepoStats
+export const repoStats = await githubRequest("/repos/Murchoid/iwashere") as GitHubRepoStats
 const stars = repoStats.stargazers_count;
-export const latestRelease = await githubRequest("repos/Murchoid/iwashere/releases/lates") as GitHubRelease
+export const latestRelease = await githubRequest("/repos/Murchoid/iwashere/releases/latest") as GitHubRelease
 
 
 export const allReleases = async (): Promise<GitHubRelease[]> => {
