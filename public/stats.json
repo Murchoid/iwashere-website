@@ -1,0 +1,15 @@
+{
+  "stars": 10,
+  "contributors": 1,
+  "downloads": 151,
+  "generatedAt": "2026-06-01T11:15:23.524Z",
+  "latestVersion": {
+    "version": "v0.3.3",
+    "commit": "latest"
+  },
+  "downloadUrls": {
+    "linux": "https://github.com/Murchoid/iwashere/releases/download/v0.3.3/iwashere_0.3.3_linux_amd64.apk",
+    "macos": "https://github.com/Murchoid/iwashere/releases/download/v0.3.3/iwashere_0.3.3_darwin_amd64.tar.gz",
+    "windows": "https://github.com/Murchoid/iwashere/releases/download/v0.3.3/iwashere_0.3.3_windows_amd64.zip"
+  }
+}

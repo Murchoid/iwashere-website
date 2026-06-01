@@ -49,9 +49,11 @@ export const allReleases = async (): Promise<GitHubRelease[]> => {
 
   while (hasMore) {
     const response = await githubRequest(`/repos/Murchoid/iwashere/releases?page=${page}&per_page=100`)
-    if (!response.ok) break;
+    if (!response){
+        break;
+    };
 
-    const releases = await response.json() as GitHubRelease[];
+    const releases = response as GitHubRelease[];
     if (releases.length === 0) {
       hasMore = false;
     } else {
@@ -79,22 +81,21 @@ export const allContributors = async (): Promise<number> => {
 };
 
 
-  const downloadUrl =(releaseData: GitHubRelease[]) => {
-    if (!releaseData) return { linux: "#", macos: "#", windows: "#" };
-    
-    let latest = releaseData.length-1;
+  // return download urls for the latest release
+  const downloadUrl = (release?: GitHubRelease) => {
+    if (!release || !release.assets) return { linux: "#", macos: "#", windows: "#" };
 
     return {
-      linux: getDownloadUrl(releaseData[latest].assets, "linux"),
-      macos: getDownloadUrl(releaseData[latest].assets, "macos"),
-      windows: getDownloadUrl(releaseData[latest].assets, "windows")
+      linux: getDownloadUrl(release.assets, "linux"),
+      macos: getDownloadUrl(release.assets, "macos"),
+      windows: getDownloadUrl(release.assets, "windows")
     };
   }
 
 
 const getDownloadUrl = (assets: ReleaseAsset[], os: string, arch: string = "amd64") => {
   const patterns = {
-    linux: [`linux_${arch}`, 'linux_amd64', '.deb', '.rpm', '.AppImage'],
+    linux: [`linux_${arch}.deb`, 'linux_amd64', '.deb', '.rpm', '.AppImage'],
     macos: ['darwin', 'macOS', 'apple', '.pkg'],
     windows: ['windows', '.exe', '.zip']
   };
@@ -148,7 +149,7 @@ export interface stats {
 //prepare the data
 
 let contributors = await allContributors()
-let downloadUrls = downloadUrl(releases)
+let downloadUrls = downloadUrl(releases[0])
 
 const getVersionInfo = (tagName: string) => {
     const version = tagName.startsWith('v') ? tagName : `v${tagName}`;
