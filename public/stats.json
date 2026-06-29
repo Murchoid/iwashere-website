@@ -1,15 +1,15 @@
 {
   "stars": 11,
   "contributors": 1,
-  "downloads": 163,
-  "generatedAt": "2026-06-28T04:38:24.046Z",
+  "downloads": 164,
+  "generatedAt": "2026-06-29T12:09:04.269Z",
   "latestVersion": {
-    "version": "v0.3.3",
+    "version": "v0.3.4",
     "commit": "latest"
   },
   "downloadUrls": {
-    "linux": "https://github.com/Murchoid/iwashere/releases/download/v0.3.3/iwashere_0.3.3_linux_amd64.apk",
-    "macos": "https://github.com/Murchoid/iwashere/releases/download/v0.3.3/iwashere_0.3.3_darwin_amd64.tar.gz",
-    "windows": "https://github.com/Murchoid/iwashere/releases/download/v0.3.3/iwashere_0.3.3_windows_amd64.zip"
+    "linux": "https://github.com/Murchoid/iwashere/releases/download/v0.3.4/iwashere_0.3.4_linux_amd64.apk",
+    "macos": "https://github.com/Murchoid/iwashere/releases/download/v0.3.4/iwashere_0.3.4_darwin_amd64.tar.gz",
+    "windows": "https://github.com/Murchoid/iwashere/releases/download/v0.3.4/iwashere_0.3.4_windows_amd64.zip"
   }
 }
